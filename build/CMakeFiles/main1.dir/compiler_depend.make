@@ -4,6 +4,7 @@
 CMakeFiles/main1.dir/main1.cpp.o: /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/main1.cpp \
   /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/color.h \
   /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/ray.h \
+  /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/sphere.h \
   /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/vec3.h \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
@@ -367,8 +368,6 @@ CMakeFiles/main1.dir/main1.cpp.o: /home/illusionary/文档/c++_code/raytracing\ 
 
 /usr/include/bits/types/time_t.h:
 
-/usr/include/bits/types/sigset_t.h:
-
 /usr/include/bits/types/struct_timeval.h:
 
 /usr/include/c++/13.2.1/string:
@@ -403,6 +402,8 @@ CMakeFiles/main1.dir/main1.cpp.o: /home/illusionary/文档/c++_code/raytracing\ 
 
 /usr/include/bits/pthreadtypes-arch.h:
 
+/usr/include/bits/pthread_stack_min-dynamic.h:
+
 /usr/include/c++/13.2.1/ext/alloc_traits.h:
 
 /usr/include/bits/struct_mutex.h:
@@ -417,17 +418,11 @@ CMakeFiles/main1.dir/main1.cpp.o: /home/illusionary/文档/c++_code/raytracing\ 
 
 /usr/include/c++/13.2.1/bits/istream.tcc:
 
-/usr/include/c++/13.2.1/type_traits:
-
-/usr/include/bits/types/clock_t.h:
-
-/usr/include/bits/mathcalls.h:
-
-/usr/include/bits/types/__fpos_t.h:
-
 /usr/include/bits/math-vector.h:
 
 /usr/include/asm-generic/errno-base.h:
+
+/home/illusionary/文档/c++_code/raytracing\ in\ one\ week/sphere.h:
 
 /usr/include/bits/stdlib-float.h:
 
@@ -447,19 +442,33 @@ CMakeFiles/main1.dir/main1.cpp.o: /home/illusionary/文档/c++_code/raytracing\ 
 
 /usr/include/c++/13.2.1/bits/basic_string.h:
 
-/usr/include/features.h:
-
-/usr/include/c++/13.2.1/tuple:
-
-/usr/include/bits/endianness.h:
-
 /usr/include/bits/types/mbstate_t.h:
 
 /usr/include/bits/floatn.h:
 
 /usr/include/c++/13.2.1/bits/invoke.h:
 
+/usr/include/features.h:
+
+/usr/include/c++/13.2.1/tuple:
+
+/usr/include/bits/endianness.h:
+
+/usr/include/c++/13.2.1/type_traits:
+
+/usr/include/bits/types/clock_t.h:
+
+/usr/include/bits/types/__fpos_t.h:
+
+/usr/include/bits/mathcalls.h:
+
 /usr/include/bits/locale.h:
+
+/usr/include/wctype.h:
+
+/usr/include/bits/timex.h:
+
+/usr/include/bits/errno.h:
 
 /usr/include/c++/13.2.1/bits/utility.h:
 
@@ -487,14 +496,6 @@ CMakeFiles/main1.dir/main1.cpp.o: /home/illusionary/文档/c++_code/raytracing\ 
 
 /usr/include/bits/fp-logb.h:
 
-/usr/include/wctype.h:
-
-/usr/include/bits/errno.h:
-
-/usr/include/bits/timex.h:
-
-/usr/include/bits/pthread_stack_min-dynamic.h:
-
 /usr/include/bits/iscanonical.h:
 
 /usr/include/bits/libc-header-start.h:
@@ -506,6 +507,8 @@ CMakeFiles/main1.dir/main1.cpp.o: /home/illusionary/文档/c++_code/raytracing\ 
 /usr/include/bits/mathcalls-narrow.h:
 
 /usr/include/bits/types/timer_t.h:
+
+/usr/include/bits/types/sigset_t.h:
 
 /usr/include/bits/types/struct_FILE.h:
 
@@ -619,6 +622,10 @@ CMakeFiles/main1.dir/main1.cpp.o: /home/illusionary/文档/c++_code/raytracing\ 
 
 /usr/include/c++/13.2.1/bits/nested_exception.h:
 
+/usr/include/c++/13.2.1/bits/streambuf.tcc:
+
+/usr/include/c++/13.2.1/bits/postypes.h:
+
 /usr/include/bits/wchar.h:
 
 /usr/include/c++/13.2.1/bits/predefined_ops.h:
@@ -640,7 +647,3 @@ CMakeFiles/main1.dir/main1.cpp.o: /home/illusionary/文档/c++_code/raytracing\ 
 /usr/include/c++/13.2.1/bits/exception.h:
 
 /usr/include/c++/13.2.1/bits/stl_iterator_base_funcs.h:
-
-/usr/include/c++/13.2.1/bits/postypes.h:
-
-/usr/include/c++/13.2.1/bits/streambuf.tcc:
