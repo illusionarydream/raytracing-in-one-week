@@ -158,4 +158,5 @@ CMakeFiles/main1.dir/main1.cpp.o: \
  /usr/include/c++/13.2.1/tr1/poly_laguerre.tcc \
  /usr/include/c++/13.2.1/tr1/riemann_zeta.tcc \
  /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/ray.h \
- /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/sphere.h
+ /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/sphere.h \
+ /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/hittable.h

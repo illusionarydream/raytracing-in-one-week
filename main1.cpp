@@ -1,9 +1,14 @@
 #include <iostream>
 #include "color.h"
 #include "ray.h"
+#include "sphere.h"
+// 设置一个球模型
+auto my_sphere=sphere(point3(0,0,-10),5);
+
 color raycolor(const ray& r){
-    auto l=r.direction().length();
-    return color(l-0.999,l-0.999,l-0.999);
+    hit_record rec;
+    bool if_hit=my_sphere.hit(r,0.001,100,rec);
+    return if_hit==false?color(255.0,255.0,255.0):rec.normal/2+color(0.5,0.5,0.5);
 }
 int main(){
     // set up the rendered image;
