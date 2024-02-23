@@ -46,11 +46,10 @@ public:
         
         if(discriminant<0)
             return false;
-        
-        auto root=(-half_b-sqrt(discriminant))/a;
-
+        auto sqrd=sqrt(discriminant);
+        auto root=(-half_b-sqrd)/a;
         if(root<=ray_tmin||root>=ray_tmax){
-            root=(-half_b+sqrt(discriminant))/a;
+            root=(-half_b+sqrd)/a;
             if(root<=ray_tmin||root>=ray_tmax)
                 return false;
         }

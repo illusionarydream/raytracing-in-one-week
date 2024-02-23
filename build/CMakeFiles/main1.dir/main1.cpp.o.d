@@ -159,4 +159,29 @@ CMakeFiles/main1.dir/main1.cpp.o: \
  /usr/include/c++/13.2.1/tr1/riemann_zeta.tcc \
  /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/ray.h \
  /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/sphere.h \
- /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/hittable.h
+ /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/hittable.h \
+ /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/hittable_list.h \
+ /usr/include/c++/13.2.1/memory \
+ /usr/include/c++/13.2.1/bits/stl_tempbuf.h \
+ /usr/include/c++/13.2.1/bits/stl_uninitialized.h \
+ /usr/include/c++/13.2.1/bits/stl_raw_storage_iter.h \
+ /usr/include/c++/13.2.1/bits/align.h \
+ /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/stdint.h \
+ /usr/include/stdint.h /usr/include/bits/stdint-uintn.h \
+ /usr/include/bits/stdint-least.h \
+ /usr/include/c++/13.2.1/bits/unique_ptr.h \
+ /usr/include/c++/13.2.1/bits/shared_ptr.h \
+ /usr/include/c++/13.2.1/bits/shared_ptr_base.h \
+ /usr/include/c++/13.2.1/bits/allocated_ptr.h \
+ /usr/include/c++/13.2.1/ext/aligned_buffer.h \
+ /usr/include/c++/13.2.1/ext/concurrence.h \
+ /usr/include/c++/13.2.1/bits/shared_ptr_atomic.h \
+ /usr/include/c++/13.2.1/bits/atomic_base.h \
+ /usr/include/c++/13.2.1/bits/atomic_lockfree_defines.h \
+ /usr/include/c++/13.2.1/backward/auto_ptr.h \
+ /usr/include/c++/13.2.1/pstl/glue_memory_defs.h \
+ /usr/include/c++/13.2.1/pstl/execution_defs.h \
+ /usr/include/c++/13.2.1/vector /usr/include/c++/13.2.1/bits/stl_vector.h \
+ /usr/include/c++/13.2.1/bits/stl_bvector.h \
+ /usr/include/c++/13.2.1/bits/vector.tcc \
+ /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/math_materials.h

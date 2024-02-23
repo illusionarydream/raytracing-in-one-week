@@ -5,6 +5,8 @@ CMakeFiles/main1.dir/main1.cpp.o
  /home/illusionary/文档/c++_code/raytracing in one week/main1.cpp
  /home/illusionary/文档/c++_code/raytracing in one week/color.h
  /home/illusionary/文档/c++_code/raytracing in one week/hittable.h
+ /home/illusionary/文档/c++_code/raytracing in one week/hittable_list.h
+ /home/illusionary/文档/c++_code/raytracing in one week/math_materials.h
  /home/illusionary/文档/c++_code/raytracing in one week/ray.h
  /home/illusionary/文档/c++_code/raytracing in one week/sphere.h
  /home/illusionary/文档/c++_code/raytracing in one week/vec3.h
@@ -39,6 +41,8 @@ CMakeFiles/main1.dir/main1.cpp.o
  /usr/include/bits/select.h
  /usr/include/bits/setjmp.h
  /usr/include/bits/stdint-intn.h
+ /usr/include/bits/stdint-least.h
+ /usr/include/bits/stdint-uintn.h
  /usr/include/bits/stdio_lim.h
  /usr/include/bits/stdlib-float.h
  /usr/include/bits/struct_mutex.h
@@ -80,10 +84,15 @@ CMakeFiles/main1.dir/main1.cpp.o
  /usr/include/bits/wchar.h
  /usr/include/bits/wctype-wchar.h
  /usr/include/bits/wordsize.h
+ /usr/include/c++/13.2.1/backward/auto_ptr.h
  /usr/include/c++/13.2.1/backward/binders.h
  /usr/include/c++/13.2.1/bit
+ /usr/include/c++/13.2.1/bits/align.h
  /usr/include/c++/13.2.1/bits/alloc_traits.h
+ /usr/include/c++/13.2.1/bits/allocated_ptr.h
  /usr/include/c++/13.2.1/bits/allocator.h
+ /usr/include/c++/13.2.1/bits/atomic_base.h
+ /usr/include/c++/13.2.1/bits/atomic_lockfree_defines.h
  /usr/include/c++/13.2.1/bits/basic_ios.h
  /usr/include/c++/13.2.1/bits/basic_ios.tcc
  /usr/include/c++/13.2.1/bits/basic_string.h
@@ -121,22 +130,32 @@ CMakeFiles/main1.dir/main1.cpp.o
  /usr/include/c++/13.2.1/bits/range_access.h
  /usr/include/c++/13.2.1/bits/refwrap.h
  /usr/include/c++/13.2.1/bits/requires_hosted.h
+ /usr/include/c++/13.2.1/bits/shared_ptr.h
+ /usr/include/c++/13.2.1/bits/shared_ptr_atomic.h
+ /usr/include/c++/13.2.1/bits/shared_ptr_base.h
  /usr/include/c++/13.2.1/bits/specfun.h
  /usr/include/c++/13.2.1/bits/std_abs.h
  /usr/include/c++/13.2.1/bits/stl_algobase.h
+ /usr/include/c++/13.2.1/bits/stl_bvector.h
  /usr/include/c++/13.2.1/bits/stl_construct.h
  /usr/include/c++/13.2.1/bits/stl_function.h
  /usr/include/c++/13.2.1/bits/stl_iterator.h
  /usr/include/c++/13.2.1/bits/stl_iterator_base_funcs.h
  /usr/include/c++/13.2.1/bits/stl_iterator_base_types.h
  /usr/include/c++/13.2.1/bits/stl_pair.h
+ /usr/include/c++/13.2.1/bits/stl_raw_storage_iter.h
+ /usr/include/c++/13.2.1/bits/stl_tempbuf.h
+ /usr/include/c++/13.2.1/bits/stl_uninitialized.h
+ /usr/include/c++/13.2.1/bits/stl_vector.h
  /usr/include/c++/13.2.1/bits/streambuf.tcc
  /usr/include/c++/13.2.1/bits/streambuf_iterator.h
  /usr/include/c++/13.2.1/bits/string_view.tcc
  /usr/include/c++/13.2.1/bits/stringfwd.h
+ /usr/include/c++/13.2.1/bits/unique_ptr.h
  /usr/include/c++/13.2.1/bits/uses_allocator.h
  /usr/include/c++/13.2.1/bits/uses_allocator_args.h
  /usr/include/c++/13.2.1/bits/utility.h
+ /usr/include/c++/13.2.1/bits/vector.tcc
  /usr/include/c++/13.2.1/cctype
  /usr/include/c++/13.2.1/cerrno
  /usr/include/c++/13.2.1/clocale
@@ -149,8 +168,10 @@ CMakeFiles/main1.dir/main1.cpp.o
  /usr/include/c++/13.2.1/debug/assertions.h
  /usr/include/c++/13.2.1/debug/debug.h
  /usr/include/c++/13.2.1/exception
+ /usr/include/c++/13.2.1/ext/aligned_buffer.h
  /usr/include/c++/13.2.1/ext/alloc_traits.h
  /usr/include/c++/13.2.1/ext/atomicity.h
+ /usr/include/c++/13.2.1/ext/concurrence.h
  /usr/include/c++/13.2.1/ext/numeric_traits.h
  /usr/include/c++/13.2.1/ext/string_conversions.h
  /usr/include/c++/13.2.1/ext/type_traits.h
@@ -160,8 +181,11 @@ CMakeFiles/main1.dir/main1.cpp.o
  /usr/include/c++/13.2.1/iostream
  /usr/include/c++/13.2.1/istream
  /usr/include/c++/13.2.1/limits
+ /usr/include/c++/13.2.1/memory
  /usr/include/c++/13.2.1/new
  /usr/include/c++/13.2.1/ostream
+ /usr/include/c++/13.2.1/pstl/execution_defs.h
+ /usr/include/c++/13.2.1/pstl/glue_memory_defs.h
  /usr/include/c++/13.2.1/pstl/pstl_config.h
  /usr/include/c++/13.2.1/stdexcept
  /usr/include/c++/13.2.1/streambuf
@@ -183,6 +207,7 @@ CMakeFiles/main1.dir/main1.cpp.o
  /usr/include/c++/13.2.1/tuple
  /usr/include/c++/13.2.1/type_traits
  /usr/include/c++/13.2.1/typeinfo
+ /usr/include/c++/13.2.1/vector
  /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/atomic_word.h
  /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/c++allocator.h
  /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/c++config.h
@@ -207,6 +232,7 @@ CMakeFiles/main1.dir/main1.cpp.o
  /usr/include/pthread.h
  /usr/include/sched.h
  /usr/include/stdc-predef.h
+ /usr/include/stdint.h
  /usr/include/stdio.h
  /usr/include/stdlib.h
  /usr/include/sys/cdefs.h
@@ -218,4 +244,5 @@ CMakeFiles/main1.dir/main1.cpp.o
  /usr/include/wctype.h
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/stdarg.h
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/stddef.h
+ /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/stdint.h
 
