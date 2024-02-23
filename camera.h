@@ -47,6 +47,9 @@ class camera {
     // 图片RGB缓存
     color** color_buf;
 
+    // 对一个像素点采样的光线数量
+    int samples_per_pixel;
+
    private:
     // *函数
     void initialize() {
@@ -75,13 +78,15 @@ class camera {
         color_buf = new color*[image_height];
         for (int i = 0; i < image_height; i++)
             color_buf[i] = new color[image_width];
-    }
 
+        // 初始化像素采样光线数量
+        samples_per_pixel = 10;
+    }
     color raycolor(const ray& r, const hittable& models) {
         hit_record rec;
         bool if_hit = models.hit(r, interval(0.0, infinity), rec);
-        return if_hit == false ? color(255.0, 255.0, 255.0) : rec.normal / 2 + color(0.5, 0.5, 0.5);
-        // auto depth=(r.at(rec.t)-r.origin()).length();
+        return if_hit == false ? color(1.0, 1.0, 1.0) : rec.normal / 2 + color(0.5, 0.5, 0.5);
+        // auto depth=(r.at(rec.t)-r.origin()).length();s
         // return if_hit==true?color(0.0,0.0,0.0):color(255.0,255.0,255.0);
     }
     void antialiasing() {
@@ -110,6 +115,18 @@ class camera {
                 write_color(std::cout, color_buf[i][j]);
         std::clog << "print finished!\n";
     }
+    vec3 get_squard_bias() {
+        auto random_x = random_double() - 0.5;
+        auto random_y = random_double() - 0.5;
+        return random_x * viewport_delta_u + random_y * viewport_delta_v;
+    }
+    // 对一个像素区域内的各个点进行采样求平均
+    ray get_ray(int i, int j) {
+        auto bias = get_squard_bias();
+        auto pixel_center = pixel_origin_in_world + i * viewport_delta_v + j * viewport_delta_u + bias;
+        auto ray_dir = pixel_center - camera_center;
+        return ray(camera_center, ray_dir);
+    }
 
    public:
     camera() {}
@@ -132,12 +149,15 @@ class camera {
             std::clog << "\rScanlines remaining:" << image_height - i << std::endl;
             for (int j = 0; j < image_width; j++) {
                 // produce a ray
-                auto current_pixel_center = pixel_origin_in_world + i * viewport_delta_v + j * viewport_delta_u;
-                auto current_ray_dir = current_pixel_center - camera_center;
-                ray current_ray = ray(camera_center, current_ray_dir);
-
-                auto current_pixel_color = raycolor(current_ray, models);
-                color_buf[i][j] = current_pixel_color;
+                color ans_color(0.0, 0.0, 0.0);
+                for (int k = 0; k < samples_per_pixel; k++) {
+                    auto current_ray = get_ray(i, j);
+                    // auto current_color = raycolor(current_ray, models);
+                    // std::clog << current_color.x() << ' ' << current_color.y() << ' ' << current_color.z() << std::endl;
+                    ans_color += raycolor(current_ray, models);
+                }
+                ans_color /= samples_per_pixel;
+                color_buf[i][j] = ans_color;
             }
         }
         std::clog << "render finished!\n";
