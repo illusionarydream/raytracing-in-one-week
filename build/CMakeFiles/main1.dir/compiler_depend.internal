@@ -3,9 +3,11 @@
 
 CMakeFiles/main1.dir/main1.cpp.o
  /home/illusionary/文档/c++_code/raytracing in one week/main1.cpp
+ /home/illusionary/文档/c++_code/raytracing in one week/camera.h
  /home/illusionary/文档/c++_code/raytracing in one week/color.h
  /home/illusionary/文档/c++_code/raytracing in one week/hittable.h
  /home/illusionary/文档/c++_code/raytracing in one week/hittable_list.h
+ /home/illusionary/文档/c++_code/raytracing in one week/interval.h
  /home/illusionary/文档/c++_code/raytracing in one week/math_materials.h
  /home/illusionary/文档/c++_code/raytracing in one week/ray.h
  /home/illusionary/文档/c++_code/raytracing in one week/sphere.h

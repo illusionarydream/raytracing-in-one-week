@@ -1,6 +1,8 @@
 CMakeFiles/main1.dir/main1.cpp.o: \
  /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/main1.cpp \
- /usr/include/stdc-predef.h /usr/include/c++/13.2.1/iostream \
+ /usr/include/stdc-predef.h \
+ /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/camera.h \
+ /usr/include/c++/13.2.1/iostream \
  /usr/include/c++/13.2.1/bits/requires_hosted.h \
  /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/c++config.h \
  /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/os_defines.h \
@@ -160,7 +162,8 @@ CMakeFiles/main1.dir/main1.cpp.o: \
  /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/ray.h \
  /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/sphere.h \
  /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/hittable.h \
- /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/hittable_list.h \
+ /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/interval.h \
+ /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/math_materials.h \
  /usr/include/c++/13.2.1/memory \
  /usr/include/c++/13.2.1/bits/stl_tempbuf.h \
  /usr/include/c++/13.2.1/bits/stl_uninitialized.h \
@@ -181,7 +184,7 @@ CMakeFiles/main1.dir/main1.cpp.o: \
  /usr/include/c++/13.2.1/backward/auto_ptr.h \
  /usr/include/c++/13.2.1/pstl/glue_memory_defs.h \
  /usr/include/c++/13.2.1/pstl/execution_defs.h \
+ /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/hittable_list.h \
  /usr/include/c++/13.2.1/vector /usr/include/c++/13.2.1/bits/stl_vector.h \
  /usr/include/c++/13.2.1/bits/stl_bvector.h \
- /usr/include/c++/13.2.1/bits/vector.tcc \
- /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/math_materials.h
+ /usr/include/c++/13.2.1/bits/vector.tcc
