@@ -137,11 +137,10 @@ inline vec3 refraction(const vec3 &v_in, const vec3 &n, double etai_over_etat) {
     // vec3 r_out_perp = etai_over_etat * (v_in + cos_theta * n);
     // vec3 r_out_parallel = -sqrt(fabs(1.0 - r_out_perp.length_squared())) * n;
     // return r_out_perp + r_out_parallel;
-    auto tmpv_in = unit_vector(v_in);
-    auto v_out_vertical = (tmpv_in - dot(tmpv_in, n) * n) * etai_over_etat;
+    auto v_out_vertical = (v_in - dot(v_in, n) * n) * etai_over_etat;
     // 若发生全反射则直接返回反射向量
     if (v_out_vertical.length() >= 1.0 - min_double_error)
-        return reflect(tmpv_in, n);
+        return reflect(v_in, n);
     auto v_out_parrell = -n * sqrt(1 - v_out_vertical.length_squared());
     return v_out_parrell + v_out_vertical;
 }
