@@ -8,10 +8,12 @@ int main() {
     double focal_lenth = 1.0;
     double aspect_ratio = 16.0 / 9.0;
     camera cam(image_width, aspect_ratio, focal_lenth);
+    // *新建材料
+    shared_ptr<Lambertian> lam = make_shared<Lambertian>(color(0.5, 0.5, 0.5));
 
     // *添加模型
-    cam.add_model(make_shared<sphere>(point3(0, 0, -1), 0.5));
-    cam.add_model(make_shared<sphere>(point3(0, -100, 0), 99.5));
+    cam.add_model(make_shared<sphere>(point3(0, 0, -1), 0.5, lam));
+    cam.add_model(make_shared<sphere>(point3(0, -100, 0), 99.5, lam));
 
     // *启用抗锯齿
     // cam.set_if_antialising(true);

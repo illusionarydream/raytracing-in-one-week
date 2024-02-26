@@ -6,6 +6,7 @@
 #include "sphere.h"
 #include "hittable_list.h"
 #include "math_materials.h"
+#include "material.h"
 // *相机类型用于照相，所有的整体渲染过程都在这个类型里完成，就像是相机拍摄得到一张照片
 class camera {
    private:
@@ -50,6 +51,12 @@ class camera {
     // 对一个像素点采样的光线数量
     int samples_per_pixel;
 
+    // 继续进行下一次bounce的概率
+    double next_bounce_ratio;
+
+    // 设置最多弹射的次数
+    int max_bounce_times;
+
    private:
     // *函数
     void initialize() {
@@ -80,15 +87,41 @@ class camera {
             color_buf[i] = new color[image_width];
 
         // 初始化像素采样光线数量
-        samples_per_pixel = 10;
+        samples_per_pixel = 1000;
+
+        // 初始化下一次弹射的概率
+        // *这是无偏的估计量
+        next_bounce_ratio = 0.99;
+
+        // 初始化最大的弹射次数
+        // *这是有偏的估计量
+        max_bounce_times = 10;
     }
+
+    double depth_color(const hit_record& rec) {
+        return (rec.p - camera_center).length();
+    }
+
+    // *render a single light
     color raycolor(const ray& r, const hittable& models) {
         hit_record rec;
-        bool if_hit = models.hit(r, interval(0.0, infinity), rec);
-        return if_hit == false ? color(1.0, 1.0, 1.0) : rec.normal / 2 + color(0.5, 0.5, 0.5);
-        // auto depth=(r.at(rec.t)-r.origin()).length();s
-        // return if_hit==true?color(0.0,0.0,0.0):color(255.0,255.0,255.0);
+        bool if_hit = models.hit(r, interval(min_double_error, infinity), rec);
+
+        if (if_hit) {
+            // *to generate true Lambertian reflectance
+            ray scattered_ray;
+            color attenuation;
+            rec.mat->scatter(r, rec, attenuation, scattered_ray);
+            if (if_next_bounce(next_bounce_ratio))
+                return attenuation * raycolor(scattered_ray, models) / next_bounce_ratio;
+            return color(0.0, 0.0, 0.0);
+        }
+
+        vec3 unit_direction = unit_vector(r.direction());
+        auto a = 0.5 * (unit_direction.y() + 1.0);
+        return (1.0 - a) * color(1.0, 1.0, 1.0) + a * color(0.5, 0.7, 1.0);
     }
+
     void antialiasing() {
         if (if_antialiasing == true) {
             std::clog << "start antiliasing !\n";
@@ -120,6 +153,8 @@ class camera {
         auto random_y = random_double() - 0.5;
         return random_x * viewport_delta_u + random_y * viewport_delta_v;
     }
+
+    // * get a single light
     // 对一个像素区域内的各个点进行采样求平均
     ray get_ray(int i, int j) {
         auto bias = get_squard_bias();
@@ -144,6 +179,8 @@ class camera {
     void set_if_antialising(bool sign) {
         if_antialiasing = sign;
     }
+
+    // *render
     void render() {
         for (int i = 0; i < image_height; i++) {
             std::clog << "\rScanlines remaining:" << image_height - i << std::endl;
@@ -152,8 +189,6 @@ class camera {
                 color ans_color(0.0, 0.0, 0.0);
                 for (int k = 0; k < samples_per_pixel; k++) {
                     auto current_ray = get_ray(i, j);
-                    // auto current_color = raycolor(current_ray, models);
-                    // std::clog << current_color.x() << ' ' << current_color.y() << ' ' << current_color.z() << std::endl;
                     ans_color += raycolor(current_ray, models);
                 }
                 ans_color /= samples_per_pixel;

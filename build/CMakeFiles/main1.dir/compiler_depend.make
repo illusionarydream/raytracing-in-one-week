@@ -7,6 +7,7 @@ CMakeFiles/main1.dir/main1.cpp.o: /home/illusionary/文档/c++_code/raytracing\ 
   /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/hittable.h \
   /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/hittable_list.h \
   /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/interval.h \
+  /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/material.h \
   /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/math_materials.h \
   /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/ray.h \
   /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/sphere.h \
@@ -382,6 +383,10 @@ CMakeFiles/main1.dir/main1.cpp.o: /home/illusionary/文档/c++_code/raytracing\ 
 
 /usr/include/c++/13.2.1/bits/refwrap.h:
 
+/usr/include/c++/13.2.1/cstddef:
+
+/usr/include/c++/13.2.1/bits/ptr_traits.h:
+
 /usr/include/bits/types/__FILE.h:
 
 /usr/include/c++/13.2.1/clocale:
@@ -401,12 +406,6 @@ CMakeFiles/main1.dir/main1.cpp.o: /home/illusionary/文档/c++_code/raytracing\ 
 /usr/include/bits/mathcalls-helper-functions.h:
 
 /usr/include/bits/types/time_t.h:
-
-/usr/include/bits/types/struct_timeval.h:
-
-/usr/include/c++/13.2.1/string:
-
-/usr/include/c++/13.2.1/bits/ostream_insert.h:
 
 /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/cpu_defines.h:
 
@@ -470,6 +469,10 @@ CMakeFiles/main1.dir/main1.cpp.o: /home/illusionary/文档/c++_code/raytracing\ 
 
 /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/sphere.h:
 
+/home/illusionary/文档/c++_code/raytracing\ in\ one\ week/vec3.h:
+
+/usr/include/bits/floatn.h:
+
 /usr/include/bits/stdint-least.h:
 
 /usr/include/c++/13.2.1/bits/istream.tcc:
@@ -480,9 +483,11 @@ CMakeFiles/main1.dir/main1.cpp.o: /home/illusionary/文档/c++_code/raytracing\ 
 
 /usr/include/c++/13.2.1/bits/move.h:
 
-/home/illusionary/文档/c++_code/raytracing\ in\ one\ week/vec3.h:
+/usr/include/bits/types/struct_timeval.h:
 
-/usr/include/bits/floatn.h:
+/usr/include/c++/13.2.1/string:
+
+/usr/include/c++/13.2.1/bits/ostream_insert.h:
 
 /usr/include/math.h:
 
@@ -495,6 +500,8 @@ CMakeFiles/main1.dir/main1.cpp.o: /home/illusionary/文档/c++_code/raytracing\ 
 /usr/include/c++/13.2.1/backward/auto_ptr.h:
 
 /usr/include/bits/types/__locale_t.h:
+
+/home/illusionary/文档/c++_code/raytracing\ in\ one\ week/material.h:
 
 /usr/include/c++/13.2.1/bits/locale_facets.tcc:
 
@@ -517,12 +524,6 @@ CMakeFiles/main1.dir/main1.cpp.o: /home/illusionary/文档/c++_code/raytracing\ 
 /usr/include/bits/time64.h:
 
 /usr/include/c++/13.2.1/bits/functexcept.h:
-
-/usr/include/bits/stdio_lim.h:
-
-/usr/include/bits/types/__mbstate_t.h:
-
-/usr/include/bits/time.h:
 
 /usr/include/c++/13.2.1/bits/cpp_type_traits.h:
 
@@ -597,6 +598,12 @@ CMakeFiles/main1.dir/main1.cpp.o: /home/illusionary/文档/c++_code/raytracing\ 
 /usr/include/bits/iscanonical.h:
 
 /usr/include/bits/libc-header-start.h:
+
+/usr/include/bits/stdio_lim.h:
+
+/usr/include/bits/time.h:
+
+/usr/include/bits/types/__mbstate_t.h:
 
 /usr/include/c++/13.2.1/cerrno:
 
@@ -697,10 +704,6 @@ CMakeFiles/main1.dir/main1.cpp.o: /home/illusionary/文档/c++_code/raytracing\ 
 /usr/include/bits/setjmp.h:
 
 /usr/include/c++/13.2.1/bits/exception.h:
-
-/usr/include/c++/13.2.1/cstddef:
-
-/usr/include/c++/13.2.1/bits/ptr_traits.h:
 
 /usr/include/c++/13.2.1/bits/exception_ptr.h:
 

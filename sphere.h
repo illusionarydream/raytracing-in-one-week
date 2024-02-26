@@ -3,10 +3,11 @@
 #include "vec3.h"
 #include "ray.h"
 #include "hittable.h"
+#include "material.h"
 class sphere : public hittable {
    public:
     sphere() {}
-    sphere(const point3 &cen, double r) : center(cen), radius(r) {}
+    sphere(const point3 &cen, double r, std::shared_ptr<material> _mat) : center(cen), radius(r), mat(_mat) {}
     bool if_hit_sphere(const ray &r) {
         auto D = r.direction();
         auto O = r.origin();
@@ -44,7 +45,7 @@ class sphere : public hittable {
         auto c = dot(O - C, O - C) - R * R;
         auto discriminant = half_b * half_b - a * c;
 
-        if (discriminant < 0)
+        if (discriminant < 0.0)
             return false;
         auto sqrd = sqrt(discriminant);
         auto root = (-half_b - sqrd) / a;
@@ -53,12 +54,11 @@ class sphere : public hittable {
             if (ray_t.surrounds(root))
                 return false;
         }
-
-        rec.p = r.at(root);
         rec.t = root;
+        rec.p = r.at(root);
         vec3 outward_normal = (rec.p - center) / radius;
         rec.set_surface_normal(r, outward_normal);
-
+        rec.mat = mat;
         return true;
     }
     vec3 get_center() {
@@ -71,5 +71,6 @@ class sphere : public hittable {
    private:
     point3 center;
     double radius;
+    std::shared_ptr<material> mat;
 };
 #endif

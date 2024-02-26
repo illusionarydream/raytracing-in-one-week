@@ -184,6 +184,7 @@ CMakeFiles/main1.dir/main1.cpp.o: \
  /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/ray.h \
  /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/sphere.h \
  /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/hittable.h \
+ /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/material.h \
  /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/hittable_list.h \
  /usr/include/c++/13.2.1/vector /usr/include/c++/13.2.1/bits/stl_vector.h \
  /usr/include/c++/13.2.1/bits/stl_bvector.h \

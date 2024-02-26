@@ -27,7 +27,7 @@ class hittable_list : public hittable {
         for (auto &object : objects) {
             if (object->hit(r, interval(ray_t.get_tmin(), r_closest_tmax), tmp_rec) == true) {
                 if_hit = true;
-                r_closest_tmax = rec.t;
+                r_closest_tmax = tmp_rec.t;
                 rec = tmp_rec;
             }
         }

@@ -3,7 +3,7 @@
 
 #include <cmath>
 #include <iostream>
-
+#include "math_materials.h"
 using std::sqrt;
 
 class vec3 {
@@ -45,6 +45,10 @@ class vec3 {
 
     double length_squared() const {
         return e[0] * e[0] + e[1] * e[1] + e[2] * e[2];
+    }
+
+    bool near_zero() {
+        return (fabs(e[0] < min_double_error)) && (fabs(e[1] < min_double_error)) && (fabs(e[2] < min_double_error));
     }
 };
 
@@ -93,6 +97,34 @@ inline vec3 cross(const vec3 &u, const vec3 &v) {
 
 inline vec3 unit_vector(vec3 v) {
     return v / v.length();
+}
+
+static vec3 random_vector() {
+    return vec3(random_double(), random_double(), random_double());
+}
+
+static vec3 random_vector(double min, double max) {
+    return vec3(random_double(min, max), random_double(min, max), random_double(min, max));
+}
+
+// 拒绝-接受采样法
+inline vec3 random_in_unit_sphere() {
+    while (true) {
+        auto new_vector = random_vector(-1.0, 1.0);
+        if (new_vector.length_squared() < 1.0)
+            return new_vector;
+    }
+}
+
+inline vec3 random_unit_vector() {
+    return unit_vector(random_in_unit_sphere());
+}
+
+inline vec3 random_unit_vector_in_hemisphere(const vec3 &normal) {
+    auto new_vec = random_unit_vector();
+    if (dot(normal, new_vec) > 0.0)
+        return new_vec;
+    return -new_vec;
 }
 
 #endif

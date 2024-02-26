@@ -2,12 +2,15 @@
 #define HITTABLE_H
 #include "ray.h"
 #include "interval.h"
+class material;
+
 class hit_record {
    public:
     point3 p;
     vec3 normal;
     double t;
     bool front_face;
+    std::shared_ptr<material> mat;
     // *默认法线是朝向面外的
     void set_surface_normal(const ray& r, const vec3& outward_normal) {
         if (dot(r.direction(), outward_normal) > 0.0) {
@@ -20,6 +23,7 @@ class hit_record {
         return;
     }
 };
+// *hittable刻画模型的集合信息
 class hittable {
    public:
     virtual ~hittable() = default;
