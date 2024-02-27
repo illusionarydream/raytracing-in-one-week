@@ -77,6 +77,9 @@ class camera {
     // 实现景深效果
     double defocus_angle;
 
+    // 设置快门速度
+    double shutter_time;
+
     // 镜片光圈在世界坐标系中的基坐标
     vec3 defocus_disk_u;
     vec3 defocus_disk_v;
@@ -192,36 +195,48 @@ class camera {
 
     // * get a single light
     // 对一个像素区域内的各个点进行采样求平均
+    // 若光圈大小不为0,则对其进行光圈模糊处理
+    // 若快门速度不为0,则对其进行快门模糊处理
     ray get_ray(int i, int j) {
         auto bias = get_squard_bias();
         auto pixel_center = pixel_origin_in_world + i * viewport_delta_v + j * viewport_delta_u + bias;
         auto ray_orig = (defocus_angle <= min_double_error) ? camera_center : defocus_disk_sample();
         auto ray_dir = pixel_center - ray_orig;
-        return ray(ray_orig, ray_dir);
+        auto ray_time = random_double(0.0, shutter_time);
+        return ray(ray_orig, ray_dir, ray_time);
     }
 
    public:
     camera() {}
-    camera(double image_w, double aspect_r, double _fov, double focal_d, double defocus_a) : image_width(image_w),
-                                                                                             aspect_ratio(aspect_r),
-                                                                                             fov(_fov),
-                                                                                             focal_dist(focal_d),
-                                                                                             defocus_angle(defocus_a) {
+    camera(double image_w, double aspect_r, double _fov)
+        : image_width(image_w),
+          aspect_ratio(aspect_r),
+          fov(_fov) {
+        // *对一些非关键的量进行初值的设定，将其变量的变化放在后面set部分来设置
         // 设置相机信息
         look_from = point3(0, 0, 0);
         look_to = point3(0, 0, -1);
         vup = vec3(0, 1, 0);
 
         // 初始化像素采样光线数量
-        samples_per_pixel = 100;
+        samples_per_pixel = 1;
 
         // 初始化下一次弹射的概率
         // *这是无偏的估计量
-        next_bounce_ratio = 0.9;
+        next_bounce_ratio = 0.5;
 
         // 初始化最大的弹射次数
         // *这是有偏的估计量
         max_bounce_times = 10;
+
+        // 初始化焦距
+        focal_dist = 1.0;
+
+        // 初始化光圈大小
+        defocus_angle = 0.0;
+
+        // 初始化快门速度
+        shutter_time = 0.0;
     }
     void add_model(shared_ptr<hittable> model) {
         models.add(model);
@@ -249,6 +264,15 @@ class camera {
     }
     void set_max_bounce_times(int num) {
         max_bounce_times = num;
+    }
+    void set_focal_dist(double focal_d) {
+        focal_dist = focal_d;
+    }
+    void set_defocus_angle(double defocus_a) {
+        defocus_angle = defocus_a;
+    }
+    void set_shutter_time(double time) {
+        shutter_time = time;
     }
     void Initialize() {
         initialize();

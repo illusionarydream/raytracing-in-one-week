@@ -29,7 +29,7 @@ class Lambertian : public material {
         // if the random vec is opposite of the rec.normal
         if (new_direction.near_zero() == true)
             new_direction = rec.normal;
-        scattered = ray(rec.p, unit_vector(new_direction));
+        scattered = ray(rec.p, unit_vector(new_direction), r_in.time());
         attenuation = albedo;
         return true;
     }
@@ -42,12 +42,13 @@ class metal : public material {
     double fuzz;
 
    public:
+    metal(double f) : albedo(color(1.0, 1.0, 1.0)), fuzz(f < 1.0 - min_double_error ? f : 1.0 - min_double_error) {}
     metal(const color& attenuation, double f) : albedo(attenuation), fuzz(f < 1.0 - min_double_error ? f : 1.0 - min_double_error) {}
 
     bool scatter(const ray& r_in, const hit_record& rec, color& attenuation, ray& reflected)
         const override {
         vec3 new_direction = reflect(r_in.direction(), rec.normal);
-        reflected = ray(rec.p, unit_vector(new_direction + fuzz * random_in_unit_sphere()));
+        reflected = ray(rec.p, unit_vector(new_direction + fuzz * random_in_unit_sphere()), r_in.time());
         attenuation = albedo;
         return true;
     }
@@ -71,6 +72,7 @@ class dielectric : public material {
     }
 
    public:
+    dielectric(double etai_) : albedo(color(1.0, 1.0, 1.0)), etai_over_etat(etai_) {}
     dielectric(const vec3& attentuation, double etai_) : albedo(attentuation), etai_over_etat(etai_) {}
     bool scatter(const ray& r_in, const hit_record& rec, color& attenuation, ray& refracted)
         const override {
@@ -89,7 +91,7 @@ class dielectric : public material {
         } else {
             new_direction = refraction(unit_dir, rec.normal, real_etai_over_etat);
         }
-        refracted = ray(rec.p, unit_vector(new_direction));
+        refracted = ray(rec.p, unit_vector(new_direction), r_in.time());
         return true;
     }
 };

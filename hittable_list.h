@@ -33,8 +33,12 @@ class hittable_list : public hittable {
         }
         return if_hit;
     }
+    AABB bounding_box() const override {
+        return list_box;
+    }
 
    private:
     std::vector<shared_ptr<hittable>> objects;
+    AABB list_box;
 };
 #endif
