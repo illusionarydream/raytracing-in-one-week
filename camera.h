@@ -19,8 +19,21 @@ class camera {
     // 相机位置
     point3 camera_center;
 
+    // 相机朝向
+    point3 look_from;
+    point3 look_to;
+    point3 vup;
+
+    // 相机坐标系
+    point3 u;
+    point3 v;
+    point3 w;
+
     // 焦距
-    double focal_length;
+    double focal_dist;
+
+    // 垂直视角
+    double fov;
 
     // 视口信息
     double viewport_height;
@@ -28,6 +41,10 @@ class camera {
 
     // 模型信息
     hittable_list models;
+
+    // 视口坐标系基向量
+    vec3 viewport_u;
+    vec3 viewport_v;
 
     // 视口坐标系中xy轴模长一像素的向量
     vec3 viewport_delta_u;
@@ -57,6 +74,13 @@ class camera {
     // 设置最多弹射的次数
     int max_bounce_times;
 
+    // 实现景深效果
+    double defocus_angle;
+
+    // 镜片光圈在世界坐标系中的基坐标
+    vec3 defocus_disk_u;
+    vec3 defocus_disk_v;
+
    private:
     // *函数
     void initialize() {
@@ -64,19 +88,37 @@ class camera {
         image_height = image_width / aspect_ratio;
 
         // 设置相机在世界坐标系中的位置
-        camera_center = point3(0, 0, 0);
+        // 为相机从什么地方看，相机看到什么的地方就是视口平面
+        camera_center = look_from;
+
+        // 计算相机坐标系在世界坐标系中的三个基轴
+        // *vup 不一定垂直于w
+        w = unit_vector(look_from - look_to);
+        u = unit_vector(cross(vup, w));
+        v = cross(w, u);
 
         // 设置视口信息
-        viewport_height = 2.0;
+        auto tan_half_theta = tan(degree_to_radians(fov / 2));
+        viewport_height = 2 * tan_half_theta * focal_dist;
         viewport_width = viewport_height * (double(image_width) / image_height);
 
+        // 设置视口坐标系基向量
+        viewport_u = viewport_width * u;
+        viewport_v = -viewport_height * v;
+
         // 设置视口坐标系一像素的xy基向量
-        viewport_delta_u = vec3(viewport_width, 0, 0) / image_width;
-        viewport_delta_v = vec3(0, -viewport_height, 0) / image_height;
+        viewport_delta_u = viewport_u / image_width;
+        viewport_delta_v = viewport_v / image_height;
 
         // 设置视口坐标系在世界坐标系中的位置和像素原点
-        viewport_origin_in_world = camera_center + point3(-viewport_width / 2, viewport_height / 2, -focal_length);
+        viewport_origin_in_world = camera_center - viewport_u / 2 - viewport_v / 2 - (focal_dist * w);
         pixel_origin_in_world = viewport_origin_in_world + viewport_delta_u / 2 + viewport_delta_v / 2;
+
+        // 计算光圈基向量
+        auto half_defocus_angle = degree_to_radians(defocus_angle / 2);
+        auto defocus_radius = tan(half_defocus_angle) * focal_dist;
+        defocus_disk_u = u * defocus_radius;
+        defocus_disk_v = v * defocus_radius;
 
         // 默认antialiasing是false
         if_antialiasing = false;
@@ -85,17 +127,6 @@ class camera {
         color_buf = new color*[image_height];
         for (int i = 0; i < image_height; i++)
             color_buf[i] = new color[image_width];
-
-        // 初始化像素采样光线数量
-        samples_per_pixel = 1000;
-
-        // 初始化下一次弹射的概率
-        // *这是无偏的估计量
-        next_bounce_ratio = 0.99;
-
-        // 初始化最大的弹射次数
-        // *这是有偏的估计量
-        max_bounce_times = 10;
     }
 
     double depth_color(const hit_record& rec) {
@@ -154,21 +185,43 @@ class camera {
         return random_x * viewport_delta_u + random_y * viewport_delta_v;
     }
 
+    point3 defocus_disk_sample() const {
+        auto p = random_in_unit_disk();
+        return camera_center + p[0] * defocus_disk_u + p[1] * defocus_disk_v;
+    }
+
     // * get a single light
     // 对一个像素区域内的各个点进行采样求平均
     ray get_ray(int i, int j) {
         auto bias = get_squard_bias();
         auto pixel_center = pixel_origin_in_world + i * viewport_delta_v + j * viewport_delta_u + bias;
-        auto ray_dir = pixel_center - camera_center;
-        return ray(camera_center, ray_dir);
+        auto ray_orig = (defocus_angle <= min_double_error) ? camera_center : defocus_disk_sample();
+        auto ray_dir = pixel_center - ray_orig;
+        return ray(ray_orig, ray_dir);
     }
 
    public:
     camera() {}
-    camera(double image_w, double aspect_r, double focal_l) : image_width(image_w),
-                                                              aspect_ratio(aspect_r),
-                                                              focal_length(focal_l) {
-        initialize();
+    camera(double image_w, double aspect_r, double _fov, double focal_d, double defocus_a) : image_width(image_w),
+                                                                                             aspect_ratio(aspect_r),
+                                                                                             fov(_fov),
+                                                                                             focal_dist(focal_d),
+                                                                                             defocus_angle(defocus_a) {
+        // 设置相机信息
+        look_from = point3(0, 0, 0);
+        look_to = point3(0, 0, -1);
+        vup = vec3(0, 1, 0);
+
+        // 初始化像素采样光线数量
+        samples_per_pixel = 100;
+
+        // 初始化下一次弹射的概率
+        // *这是无偏的估计量
+        next_bounce_ratio = 0.9;
+
+        // 初始化最大的弹射次数
+        // *这是有偏的估计量
+        max_bounce_times = 10;
     }
     void add_model(shared_ptr<hittable> model) {
         models.add(model);
@@ -179,7 +232,27 @@ class camera {
     void set_if_antialising(bool sign) {
         if_antialiasing = sign;
     }
-
+    void set_look_from(const vec3& v) {
+        look_from = v;
+    }
+    void set_look_to(const vec3& v) {
+        look_to = v;
+    }
+    void set_vup(const vec3& v) {
+        vup = v;
+    }
+    void set_samples_per_pixel(int num) {
+        samples_per_pixel = num;
+    }
+    void set_next_bounce_ratio(double ratio) {
+        next_bounce_ratio = ratio < 1.0 ? ratio : 0.99;
+    }
+    void set_max_bounce_times(int num) {
+        max_bounce_times = num;
+    }
+    void Initialize() {
+        initialize();
+    }
     // *render
     void render() {
         for (int i = 0; i < image_height; i++) {

@@ -144,4 +144,12 @@ inline vec3 refraction(const vec3 &v_in, const vec3 &n, double etai_over_etat) {
     auto v_out_parrell = -n * sqrt(1 - v_out_vertical.length_squared());
     return v_out_parrell + v_out_vertical;
 }
+
+inline vec3 random_in_unit_disk() {
+    while (true) {
+        auto p = vec3(random_double(-1.0, 1.0), random_double(-1.0, 1.0), 0);
+        if (p.length() <= 1.0)
+            return p;
+    }
+}
 #endif
