@@ -1,3 +1,3 @@
-/home/illusionary/文档/c++_code/raytracing in one week/build/CMakeFiles/main1.dir
+/home/illusionary/文档/c++_code/raytracing in one week/build/CMakeFiles/main.dir
 /home/illusionary/文档/c++_code/raytracing in one week/build/CMakeFiles/edit_cache.dir
 /home/illusionary/文档/c++_code/raytracing in one week/build/CMakeFiles/rebuild_cache.dir

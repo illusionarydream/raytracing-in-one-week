@@ -1,5 +1,5 @@
-CMakeFiles/main1.dir/main1.cpp.o: \
- /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/main1.cpp \
+CMakeFiles/main.dir/main.cpp.o: \
+ /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/main.cpp \
  /usr/include/stdc-predef.h \
  /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/camera.h \
  /usr/include/c++/13.2.1/iostream \
@@ -189,4 +189,11 @@ CMakeFiles/main1.dir/main1.cpp.o: \
  /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/hittable_list.h \
  /usr/include/c++/13.2.1/vector /usr/include/c++/13.2.1/bits/stl_vector.h \
  /usr/include/c++/13.2.1/bits/stl_bvector.h \
- /usr/include/c++/13.2.1/bits/vector.tcc
+ /usr/include/c++/13.2.1/bits/vector.tcc \
+ /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/BVH.h \
+ /usr/include/c++/13.2.1/algorithm \
+ /usr/include/c++/13.2.1/bits/stl_algo.h \
+ /usr/include/c++/13.2.1/bits/algorithmfwd.h \
+ /usr/include/c++/13.2.1/bits/stl_heap.h \
+ /usr/include/c++/13.2.1/bits/uniform_int_dist.h \
+ /usr/include/c++/13.2.1/pstl/glue_algorithm_defs.h

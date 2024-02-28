@@ -18,9 +18,14 @@ inline double random_double() {
     return double(std::rand()) / (RAND_MAX + 1.0);
 }
 
-// random function [0,1)
+// random function [min,max)
 inline double random_double(double min, double max) {
     return min + random_double() * (max - min);
+}
+
+// random function {min,min+1,...,max-1}
+inline int random_int(int min, int max) {
+    return int(random_double(min, max));
 }
 
 inline bool if_next_bounce(double next_bounce_ratio) {

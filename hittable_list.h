@@ -18,6 +18,7 @@ class hittable_list : public hittable {
     }
     void add(shared_ptr<hittable> new_object) {
         objects.push_back(new_object);
+        list_box = AABB(list_box, new_object->bounding_box());
         return;
     }
     bool hit(const ray &r, interval ray_t, hit_record &rec) const override {
@@ -35,6 +36,9 @@ class hittable_list : public hittable {
     }
     AABB bounding_box() const override {
         return list_box;
+    }
+    const std::vector<shared_ptr<hittable>> get_objects() const {
+        return objects;
     }
 
    private:

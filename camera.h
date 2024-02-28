@@ -7,6 +7,7 @@
 #include "hittable_list.h"
 #include "math_materials.h"
 #include "material.h"
+#include "BVH.h"
 // *相机类型用于照相，所有的整体渲染过程都在这个类型里完成，就像是相机拍摄得到一张照片
 class camera {
    private:
@@ -84,6 +85,9 @@ class camera {
     vec3 defocus_disk_u;
     vec3 defocus_disk_v;
 
+    // 是否使用BVH树优化
+    bool if_BVH_optimization;
+
    private:
     // *函数
     void initialize() {
@@ -130,6 +134,10 @@ class camera {
         color_buf = new color*[image_height];
         for (int i = 0; i < image_height; i++)
             color_buf[i] = new color[image_width];
+
+        // 初始化BVH tree
+        if (if_BVH_optimization == true)
+            models = hittable_list(make_shared<BVH_node>(models));
     }
 
     double depth_color(const hit_record& rec) {
@@ -219,11 +227,11 @@ class camera {
         vup = vec3(0, 1, 0);
 
         // 初始化像素采样光线数量
-        samples_per_pixel = 1;
+        samples_per_pixel = 200;
 
         // 初始化下一次弹射的概率
         // *这是无偏的估计量
-        next_bounce_ratio = 0.5;
+        next_bounce_ratio = 0.95;
 
         // 初始化最大的弹射次数
         // *这是有偏的估计量
@@ -237,6 +245,9 @@ class camera {
 
         // 初始化快门速度
         shutter_time = 0.0;
+
+        // 是否使用BVH树优化，默认不使用
+        if_BVH_optimization = false;
     }
     void add_model(shared_ptr<hittable> model) {
         models.add(model);
@@ -273,6 +284,9 @@ class camera {
     }
     void set_shutter_time(double time) {
         shutter_time = time;
+    }
+    void set_if_BVH_optimization(bool if_BVH) {
+        if_BVH_optimization = if_BVH;
     }
     void Initialize() {
         initialize();

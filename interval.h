@@ -7,12 +7,8 @@ class interval {
     interval() : tmin(-infinity), tmax(infinity) {}
     interval(double t_min, double t_max) : tmin(t_min), tmax(t_max) {}
     interval(const interval& i1, const interval& i2) {
-        tmin = std::max(i1.get_tmin(), i2.get_tmin());
-        tmax = std::min(i1.get_tmax(), i2.get_tmax());
-        if (tmin >= tmax) {
-            tmin = -infinity;
-            tmax = infinity;
-        }
+        tmin = std::min(i1.get_tmin(), i2.get_tmin());
+        tmax = std::max(i1.get_tmax(), i2.get_tmax());
     }
     inline bool contains(double x) {
         return x >= tmin && x <= tmax;
@@ -30,6 +26,9 @@ class interval {
         if (x < tmin) return tmin;
         if (x > tmax) return tmax;
         return x;
+    }
+    double get_dist() {
+        return tmax - tmin;
     }
     interval expand(double delta) {
         double padding = delta / 2;

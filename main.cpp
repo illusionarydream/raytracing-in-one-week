@@ -4,7 +4,7 @@ int main() {
     // *image_width=400
     // *aspect_ratio=16.0/9.0
     // *fov=90
-    int image_width = 400;
+    int image_width = 800;
     double aspect_ratio = 16.0 / 9.0;
     double fov = 20;
     camera cam(image_width, aspect_ratio, fov);
@@ -58,6 +58,9 @@ int main() {
 
     // *设置相机快门速度
     cam.set_shutter_time(0.5);
+
+    // *使用BVH优化
+    cam.set_if_BVH_optimization(true);
 
     // *初始化
     cam.Initialize();
