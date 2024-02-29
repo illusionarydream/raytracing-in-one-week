@@ -4,11 +4,12 @@ int main() {
     // *image_width=400
     // *aspect_ratio=16.0/9.0
     // *fov=90
-    int image_width = 800;
+    int image_width = 400;
     double aspect_ratio = 16.0 / 9.0;
     double fov = 20;
     camera cam(image_width, aspect_ratio, fov);
-    auto ground_material = make_shared<Lambertian>(color(0.5, 0.5, 0.5));
+    auto checker = make_shared<check_board>(0.32, color(.2, .3, .1), color(.9, .9, .9));
+    auto ground_material = make_shared<Lambertian>(color(0.5, 0.5, 0.5), checker);
     cam.add_model(make_shared<sphere>(point3(0, -1000, 0), 1000, ground_material));
 
     for (int a = -11; a < 11; a++) {
@@ -61,6 +62,9 @@ int main() {
 
     // *使用BVH优化
     cam.set_if_BVH_optimization(true);
+
+    // *使用四个线程
+    cam.set_thread_num(6);
 
     // *初始化
     cam.Initialize();

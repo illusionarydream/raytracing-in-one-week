@@ -17,6 +17,9 @@ class hit_record {
     bool front_face;
     // 交点材质信息
     std::shared_ptr<material> mat;
+    // texture平面坐标
+    double u;
+    double v;
 
    public:
     // *默认法线是朝向面外的

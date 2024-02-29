@@ -8,6 +8,7 @@
 #include "math_materials.h"
 #include "material.h"
 #include "BVH.h"
+#include "thread"
 // *相机类型用于照相，所有的整体渲染过程都在这个类型里完成，就像是相机拍摄得到一张照片
 class camera {
    private:
@@ -87,6 +88,9 @@ class camera {
 
     // 是否使用BVH树优化
     bool if_BVH_optimization;
+
+    // 多线程数量
+    int thread_num;
 
    private:
     // *函数
@@ -248,6 +252,9 @@ class camera {
 
         // 是否使用BVH树优化，默认不使用
         if_BVH_optimization = false;
+
+        // 初始化进程数量
+        thread_num = 1;
     }
     void add_model(shared_ptr<hittable> model) {
         models.add(model);
@@ -288,24 +295,44 @@ class camera {
     void set_if_BVH_optimization(bool if_BVH) {
         if_BVH_optimization = if_BVH;
     }
+    void set_thread_num(int _num) {
+        thread_num = _num;
+    }
     void Initialize() {
         initialize();
     }
     // *render
     void render() {
-        for (int i = 0; i < image_height; i++) {
-            std::clog << "\rScanlines remaining:" << image_height - i << std::endl;
-            for (int j = 0; j < image_width; j++) {
-                // produce a ray
-                color ans_color(0.0, 0.0, 0.0);
-                for (int k = 0; k < samples_per_pixel; k++) {
-                    auto current_ray = get_ray(i, j);
-                    ans_color += raycolor(current_ray, models);
-                }
-                ans_color /= samples_per_pixel;
-                color_buf[i][j] = ans_color;
+        std::thread thread_list[thread_num];
+        int thread_span = image_height / thread_num;
+        auto renderRow = [&](int k) {
+            int start_height;
+            int end_height;
+            if (k == thread_num - 1) {
+                start_height = k * thread_span;
+                end_height = image_height;
+            } else {
+                start_height = k * thread_span;
+                end_height = (k + 1) * thread_span;
             }
-        }
+            for (int i = start_height; i < end_height; i++) {
+                std::clog << "thread " << k << " : Row " << i << " finished\n";
+                for (int j = 0; j < image_width; j++) {
+                    // produce a ray
+                    color ans_color(0.0, 0.0, 0.0);
+                    for (int k = 0; k < samples_per_pixel; k++) {
+                        auto current_ray = get_ray(i, j);
+                        ans_color += raycolor(current_ray, models);
+                    }
+                    ans_color /= samples_per_pixel;
+                    color_buf[i][j] = ans_color;
+                }
+            }
+        };
+        for (int i = 0; i < thread_num; i++)
+            thread_list[i] = std::thread(renderRow, i);
+        for (int i = 0; i < thread_num; i++)
+            thread_list[i].join();
         std::clog << "render finished!\n";
         print_iamge();
     }

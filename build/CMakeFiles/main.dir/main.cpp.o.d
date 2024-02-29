@@ -186,6 +186,7 @@ CMakeFiles/main.dir/main.cpp.o: \
  /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/hittable.h \
  /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/AABB.h \
  /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/material.h \
+ /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/texture.h \
  /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/hittable_list.h \
  /usr/include/c++/13.2.1/vector /usr/include/c++/13.2.1/bits/stl_vector.h \
  /usr/include/c++/13.2.1/bits/stl_bvector.h \
@@ -196,4 +197,9 @@ CMakeFiles/main.dir/main.cpp.o: \
  /usr/include/c++/13.2.1/bits/algorithmfwd.h \
  /usr/include/c++/13.2.1/bits/stl_heap.h \
  /usr/include/c++/13.2.1/bits/uniform_int_dist.h \
- /usr/include/c++/13.2.1/pstl/glue_algorithm_defs.h
+ /usr/include/c++/13.2.1/pstl/glue_algorithm_defs.h \
+ /usr/include/c++/13.2.1/thread /usr/include/c++/13.2.1/bits/std_thread.h \
+ /usr/include/c++/13.2.1/bits/this_thread_sleep.h \
+ /usr/include/c++/13.2.1/bits/chrono.h /usr/include/c++/13.2.1/ratio \
+ /usr/include/c++/13.2.1/cstdint /usr/include/c++/13.2.1/ctime \
+ /usr/include/c++/13.2.1/bits/parse_numbers.h

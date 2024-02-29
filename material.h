@@ -3,6 +3,7 @@
 #include "vec3.h"
 #include "ray.h"
 #include "color.h"
+#include "texture.h"
 // *material表征模型的光学信息
 class hit_record;
 
@@ -17,11 +18,27 @@ class material {
 // * 发生漫反射
 class Lambertian : public material {
    private:
-    /* data */
+    // 吸收率
     color albedo;
+    // 材质贴图
+    shared_ptr<texture> tex;
+    bool if_tex;
 
    public:
-    Lambertian(const color& attenuation) : albedo(attenuation) {}
+    Lambertian(const color& attenuation)
+        : albedo(attenuation),
+          if_tex(false) {}
+    Lambertian(const color& attenuation, shared_ptr<texture> _tex)
+        : albedo(attenuation),
+          if_tex(true),
+          tex(_tex) {}
+
+    color get_attenuation(const hit_record& rec) const {
+        if (if_tex == false)
+            return albedo;
+        auto tex_attenuation = tex->get_texture_color(rec.u, rec.v, rec.p);
+        return albedo * tex_attenuation;
+    }
     bool scatter(const ray& r_in, const hit_record& rec, color& attenuation, ray& scattered)
         const override {
         auto new_direction = rec.normal + random_in_unit_sphere();
@@ -30,7 +47,7 @@ class Lambertian : public material {
         if (new_direction.near_zero() == true)
             new_direction = rec.normal;
         scattered = ray(rec.p, unit_vector(new_direction), r_in.time());
-        attenuation = albedo;
+        attenuation = get_attenuation(rec);
         return true;
     }
 };
@@ -38,18 +55,40 @@ class Lambertian : public material {
 // * 发生反射
 class metal : public material {
    private:
+    // 吸收率
     color albedo;
+    // 材质贴图
+    bool if_tex;
+    shared_ptr<texture> tex;
+    // 漫反射性质
     double fuzz;
 
    public:
-    metal(double f) : albedo(color(1.0, 1.0, 1.0)), fuzz(f < 1.0 - min_double_error ? f : 1.0 - min_double_error) {}
-    metal(const color& attenuation, double f) : albedo(attenuation), fuzz(f < 1.0 - min_double_error ? f : 1.0 - min_double_error) {}
+    metal(double f)
+        : albedo(color(1.0, 1.0, 1.0)),
+          fuzz(f < 1.0 - min_double_error ? f : 1.0 - min_double_error),
+          if_tex(false) {}
+    metal(const color& attenuation, double f)
+        : albedo(attenuation),
+          fuzz(f < 1.0 - min_double_error ? f : 1.0 - min_double_error),
+          if_tex(false) {}
+    metal(const color& attenuation, double f, shared_ptr<texture> _tex)
+        : albedo(attenuation),
+          fuzz(f < 1.0 - min_double_error ? f : 1.0 - min_double_error),
+          if_tex(true),
+          tex(_tex) {}
 
+    color get_attenuation(const hit_record& rec) const {
+        if (if_tex == false)
+            return albedo;
+        auto tex_attenuation = tex->get_texture_color(rec.u, rec.v, rec.p);
+        return albedo * tex_attenuation;
+    }
     bool scatter(const ray& r_in, const hit_record& rec, color& attenuation, ray& reflected)
         const override {
         vec3 new_direction = reflect(r_in.direction(), rec.normal);
         reflected = ray(rec.p, unit_vector(new_direction + fuzz * random_in_unit_sphere()), r_in.time());
-        attenuation = albedo;
+        attenuation = get_attenuation(rec);
         return true;
     }
 };
@@ -59,6 +98,9 @@ class dielectric : public material {
    private:
     color albedo;
     // *默认是表面外比表面内
+    bool if_tex;
+    shared_ptr<texture> tex;
+    // 折射反射情况
     double etai_over_etat;
     // *判断是折射还是反射，1-反射，0-折射
     bool judge_reflect_or_refract(double refraction_ratio, double cosine_theta) const {
@@ -72,12 +114,30 @@ class dielectric : public material {
     }
 
    public:
-    dielectric(double etai_) : albedo(color(1.0, 1.0, 1.0)), etai_over_etat(etai_) {}
-    dielectric(const vec3& attentuation, double etai_) : albedo(attentuation), etai_over_etat(etai_) {}
+    dielectric(double etai_)
+        : albedo(color(1.0, 1.0, 1.0)),
+          etai_over_etat(etai_),
+          if_tex(false) {}
+    dielectric(const vec3& attentuation, double etai_)
+        : albedo(attentuation),
+          etai_over_etat(etai_),
+          if_tex(false) {}
+    dielectric(const vec3& attentuation, double etai_, shared_ptr<texture> _tex)
+        : albedo(attentuation),
+          etai_over_etat(etai_),
+          if_tex(true),
+          tex(_tex) {}
+
+    color get_attenuation(const hit_record& rec) const {
+        if (if_tex == false)
+            return albedo;
+        auto tex_attenuation = tex->get_texture_color(rec.u, rec.v, rec.p);
+        return albedo * tex_attenuation;
+    }
     bool scatter(const ray& r_in, const hit_record& rec, color& attenuation, ray& refracted)
         const override {
         vec3 new_direction;
-        attenuation = albedo;
+        attenuation = get_attenuation(rec);
         // 归一化入射光向量
         auto unit_dir = unit_vector(r_in.direction());
         // 确定光线是在内部发生折射还是外部发生折射
