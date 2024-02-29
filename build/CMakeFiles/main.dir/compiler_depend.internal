@@ -3,6 +3,7 @@
 
 CMakeFiles/main.dir/main.cpp.o
  /home/illusionary/文档/c++_code/raytracing in one week/main.cpp
+ /home/illusionary/package/stb/stb_image.h
  /home/illusionary/文档/c++_code/raytracing in one week/AABB.h
  /home/illusionary/文档/c++_code/raytracing in one week/BVH.h
  /home/illusionary/文档/c++_code/raytracing in one week/camera.h
@@ -13,6 +14,7 @@ CMakeFiles/main.dir/main.cpp.o
  /home/illusionary/文档/c++_code/raytracing in one week/material.h
  /home/illusionary/文档/c++_code/raytracing in one week/math_materials.h
  /home/illusionary/文档/c++_code/raytracing in one week/ray.h
+ /home/illusionary/文档/c++_code/raytracing in one week/rtw_image.h
  /home/illusionary/文档/c++_code/raytracing in one week/sphere.h
  /home/illusionary/文档/c++_code/raytracing in one week/texture.h
  /home/illusionary/文档/c++_code/raytracing in one week/vec3.h
@@ -20,6 +22,7 @@ CMakeFiles/main.dir/main.cpp.o
  /usr/include/asm-generic/errno-base.h
  /usr/include/asm-generic/errno.h
  /usr/include/asm/errno.h
+ /usr/include/assert.h
  /usr/include/bits/atomic_wide_counter.h
  /usr/include/bits/byteswap.h
  /usr/include/bits/cpu-set.h
@@ -34,12 +37,15 @@ CMakeFiles/main.dir/main.cpp.o
  /usr/include/bits/iscanonical.h
  /usr/include/bits/libc-header-start.h
  /usr/include/bits/libm-simd-decl-stubs.h
+ /usr/include/bits/local_lim.h
  /usr/include/bits/locale.h
  /usr/include/bits/long-double.h
  /usr/include/bits/math-vector.h
  /usr/include/bits/mathcalls-helper-functions.h
  /usr/include/bits/mathcalls-narrow.h
  /usr/include/bits/mathcalls.h
+ /usr/include/bits/posix1_lim.h
+ /usr/include/bits/posix2_lim.h
  /usr/include/bits/pthread_stack_min-dynamic.h
  /usr/include/bits/pthreadtypes-arch.h
  /usr/include/bits/pthreadtypes.h
@@ -85,11 +91,13 @@ CMakeFiles/main.dir/main.cpp.o
  /usr/include/bits/types/wint_t.h
  /usr/include/bits/typesizes.h
  /usr/include/bits/uintn-identity.h
+ /usr/include/bits/uio_lim.h
  /usr/include/bits/waitflags.h
  /usr/include/bits/waitstatus.h
  /usr/include/bits/wchar.h
  /usr/include/bits/wctype-wchar.h
  /usr/include/bits/wordsize.h
+ /usr/include/bits/xopen_lim.h
  /usr/include/c++/13.2.1/algorithm
  /usr/include/c++/13.2.1/backward/auto_ptr.h
  /usr/include/c++/13.2.1/backward/binders.h
@@ -198,6 +206,7 @@ CMakeFiles/main.dir/main.cpp.o
  /usr/include/c++/13.2.1/iostream
  /usr/include/c++/13.2.1/istream
  /usr/include/c++/13.2.1/limits
+ /usr/include/c++/13.2.1/math.h
  /usr/include/c++/13.2.1/memory
  /usr/include/c++/13.2.1/new
  /usr/include/c++/13.2.1/ostream
@@ -207,6 +216,7 @@ CMakeFiles/main.dir/main.cpp.o
  /usr/include/c++/13.2.1/pstl/pstl_config.h
  /usr/include/c++/13.2.1/ratio
  /usr/include/c++/13.2.1/stdexcept
+ /usr/include/c++/13.2.1/stdlib.h
  /usr/include/c++/13.2.1/streambuf
  /usr/include/c++/13.2.1/string
  /usr/include/c++/13.2.1/string_view
@@ -246,7 +256,9 @@ CMakeFiles/main.dir/main.cpp.o
  /usr/include/features.h
  /usr/include/gnu/stubs-64.h
  /usr/include/gnu/stubs.h
+ /usr/include/limits.h
  /usr/include/linux/errno.h
+ /usr/include/linux/limits.h
  /usr/include/locale.h
  /usr/include/math.h
  /usr/include/pthread.h
@@ -255,6 +267,8 @@ CMakeFiles/main.dir/main.cpp.o
  /usr/include/stdint.h
  /usr/include/stdio.h
  /usr/include/stdlib.h
+ /usr/include/string.h
+ /usr/include/strings.h
  /usr/include/sys/cdefs.h
  /usr/include/sys/select.h
  /usr/include/sys/single_threaded.h
@@ -262,7 +276,13 @@ CMakeFiles/main.dir/main.cpp.o
  /usr/include/time.h
  /usr/include/wchar.h
  /usr/include/wctype.h
+ /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/emmintrin.h
+ /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/limits.h
+ /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/mm_malloc.h
+ /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/mmintrin.h
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/stdarg.h
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/stddef.h
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/stdint.h
+ /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/syslimits.h
+ /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/xmmintrin.h
 

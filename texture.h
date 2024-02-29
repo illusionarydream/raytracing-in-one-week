@@ -2,6 +2,7 @@
 #define TEXTURE_H
 #include "vec3.h"
 #include "color.h"
+#include "rtw_image.h"
 #include "math_materials.h"
 #include <memory>
 using std::make_shared;
@@ -47,6 +48,24 @@ class check_board : public texture {
         int odd_or_even = (integer_x + integer_y + integer_z) % 2;
         return odd_or_even == 0 ? even_color->get_texture_color(u, v, p)
                                 : odd_color->get_texture_color(u, v, p);
+    }
+};
+class image_texture : public texture {
+   private:
+    rtw_image image;
+
+   public:
+    image_texture(const char *filename) : image(filename) {}
+    color get_texture_color(double u, double v, const point3 &p) const override {
+        auto standard_inv = interval(0.0, 1.0);
+        u = standard_inv.clamp(u);
+        v = 1.0 - standard_inv.clamp(v);
+
+        auto i = int(u * image.get_width());
+        auto j = int(v * image.get_height());
+
+        // std::clog << "i=" << i << " j=" << j << std::endl;
+        return image.get_pixel_color(i, j);
     }
 };
 #endif

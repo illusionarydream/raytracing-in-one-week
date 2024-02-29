@@ -5,6 +5,7 @@
 #include "hittable.h"
 #include "material.h"
 #include "AABB.h"
+#include <cmath>
 class sphere : public hittable {
    public:
     sphere() {}
@@ -45,6 +46,7 @@ class sphere : public hittable {
         rec.t = root;
         rec.p = r.at(root);
         vec3 outward_normal = (rec.p - C) / radius;
+        get_texture_uv(outward_normal, rec.u, rec.v);
         rec.set_surface_normal(r, outward_normal);
         rec.mat = mat;
         return true;
@@ -86,6 +88,18 @@ class sphere : public hittable {
         AABB box1(center0 - rvec, center0 + rvec);
         AABB box2(center1 - rvec, center1 + rvec);
         sphere_box = AABB(box1, box2);
+    }
+    void get_texture_uv(const vec3 &outward_normal, double &u, double &v) const {
+        auto unit_center_to_surface = unit_vector(outward_normal);
+        auto X = unit_center_to_surface.x();
+        auto Y = unit_center_to_surface.y();
+        auto Z = unit_center_to_surface.z();
+
+        auto theta = std::acos(-Y);
+        auto phi = std::atan2(-Z, X) + Pi;
+
+        u = phi / (2 * Pi);
+        v = theta / Pi;
     }
 };
 #endif
