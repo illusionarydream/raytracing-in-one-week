@@ -6,7 +6,7 @@
 #include <iostream>
 #include "color.h"
 
-class rtw_image {
+class Rtw_image {
    private:
     const int byte_per_pixel = 3;
     int byte_per_scanline;
@@ -24,12 +24,12 @@ class rtw_image {
     }
 
    public:
-    rtw_image() : data(nullptr) {}
-    rtw_image(const char *image_filename) : data(nullptr) {
+    Rtw_image() : data(nullptr) {}
+    Rtw_image(const char *image_filename) : data(nullptr) {
         load(image_filename);
         std::clog << "load the picture successfully!";
     }
-    ~rtw_image() {
+    ~Rtw_image() {
         stbi_image_free(data);
     }
     int get_width() const {

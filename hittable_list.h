@@ -7,26 +7,26 @@
 #define make_shared std::make_shared
 
 // *对于刚性物体而言确实如此，一条光线和一系列刚性物体理应只有一个交点
-class hittable_list : public hittable {
+class Hittable_list : public Hittable {
    public:
-    hittable_list() {}
-    hittable_list(shared_ptr<hittable> new_object) {
+    Hittable_list() {}
+    Hittable_list(shared_ptr<Hittable> new_object) {
         add(new_object);
     }
     void clear() {
         objects.clear();
     }
-    void add(shared_ptr<hittable> new_object) {
+    void add(shared_ptr<Hittable> new_object) {
         objects.push_back(new_object);
         list_box = AABB(list_box, new_object->bounding_box());
         return;
     }
-    bool hit(const ray &r, interval ray_t, hit_record &rec) const override {
-        hit_record tmp_rec;
+    bool hit(const Ray &r, Interval ray_t, Hit_record &rec) const override {
+        Hit_record tmp_rec;
         double r_closest_tmax = ray_t.get_tmax();
         bool if_hit = false;
         for (auto &object : objects) {
-            if (object->hit(r, interval(ray_t.get_tmin(), r_closest_tmax), tmp_rec) == true) {
+            if (object->hit(r, Interval(ray_t.get_tmin(), r_closest_tmax), tmp_rec) == true) {
                 if_hit = true;
                 r_closest_tmax = tmp_rec.t;
                 rec = tmp_rec;
@@ -37,12 +37,12 @@ class hittable_list : public hittable {
     AABB bounding_box() const override {
         return list_box;
     }
-    const std::vector<shared_ptr<hittable>> get_objects() const {
+    const std::vector<shared_ptr<Hittable>> get_objects() const {
         return objects;
     }
 
    private:
-    std::vector<shared_ptr<hittable>> objects;
+    std::vector<shared_ptr<Hittable>> objects;
     AABB list_box;
 };
 #endif

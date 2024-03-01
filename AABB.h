@@ -5,11 +5,11 @@
 #include "ray.h"
 class AABB {
    public:
-    interval x;
-    interval y;
-    interval z;
+    Interval x;
+    Interval y;
+    Interval z;
     AABB() {}
-    AABB(const interval& _x, const interval& _y, const interval& _z)
+    AABB(const Interval& _x, const Interval& _y, const Interval& _z)
         : x(_x),
           y(_y),
           z(_z) {}
@@ -22,7 +22,7 @@ class AABB {
           y(box1.y, box2.y),
           z(box1.z, box2.z) {}
 
-    const interval& axis(int n) const {
+    const Interval& axis(int n) const {
         if (n == 0)
             return x;
         if (n == 1)
@@ -30,7 +30,7 @@ class AABB {
         return z;
     }
 
-    bool if_hit(const ray& r, const interval& ray_t) const {
+    bool if_hit(const Ray& r, const Interval& ray_t) const {
         std::pair<double, double> cur_t(ray_t.get_tmin(), ray_t.get_tmax());
         for (int i = 0; i < 3; i++) {
             auto inv_D = 1 / r.direction().e[i];

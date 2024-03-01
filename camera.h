@@ -10,7 +10,7 @@
 #include "BVH.h"
 #include "thread"
 // *相机类型用于照相，所有的整体渲染过程都在这个类型里完成，就像是相机拍摄得到一张照片
-class camera {
+class Camera {
    private:
     // *变量
     // set up the rendered image;
@@ -42,20 +42,20 @@ class camera {
     double viewport_width;
 
     // 模型信息
-    hittable_list models;
+    Hittable_list models;
 
     // 视口坐标系基向量
-    vec3 viewport_u;
-    vec3 viewport_v;
+    Vec3 viewport_u;
+    Vec3 viewport_v;
 
     // 视口坐标系中xy轴模长一像素的向量
-    vec3 viewport_delta_u;
-    vec3 viewport_delta_v;
+    Vec3 viewport_delta_u;
+    Vec3 viewport_delta_v;
 
     // 视口坐标系原点在世界坐标系中的位置，（0,0）像素中心在世界坐标系中的位置
     // 注意：需要加上相机位置向量
-    vec3 viewport_origin_in_world = camera_center;
-    vec3 pixel_origin_in_world;
+    Vec3 viewport_origin_in_world = camera_center;
+    Vec3 pixel_origin_in_world;
 
     // 是否进行3*3的高斯模糊去锯齿
     bool if_antialiasing;
@@ -83,8 +83,8 @@ class camera {
     double shutter_time;
 
     // 镜片光圈在世界坐标系中的基坐标
-    vec3 defocus_disk_u;
-    vec3 defocus_disk_v;
+    Vec3 defocus_disk_u;
+    Vec3 defocus_disk_v;
 
     // 是否使用BVH树优化
     bool if_BVH_optimization;
@@ -141,21 +141,21 @@ class camera {
 
         // 初始化BVH tree
         if (if_BVH_optimization == true)
-            models = hittable_list(make_shared<BVH_node>(models));
+            models = Hittable_list(make_shared<BVH_node>(models));
     }
 
-    double depth_color(const hit_record& rec) {
+    double depth_color(const Hit_record& rec) {
         return (rec.p - camera_center).length();
     }
 
     // *render a single light
-    color raycolor(const ray& r, const hittable& models) {
-        hit_record rec;
-        bool if_hit = models.hit(r, interval(min_double_error, infinity), rec);
+    color raycolor(const Ray& r, const Hittable& models) {
+        Hit_record rec;
+        bool if_hit = models.hit(r, Interval(min_double_error, infinity), rec);
 
         if (if_hit) {
             // *to generate true Lambertian reflectance
-            ray scattered_ray;
+            Ray scattered_ray;
             color attenuation;
             rec.mat->scatter(r, rec, attenuation, scattered_ray);
             if (if_next_bounce(next_bounce_ratio))
@@ -163,7 +163,7 @@ class camera {
             return color(0.0, 0.0, 0.0);
         }
 
-        vec3 unit_direction = unit_vector(r.direction());
+        Vec3 unit_direction = unit_vector(r.direction());
         auto a = 0.5 * (unit_direction.y() + 1.0);
         return (1.0 - a) * color(1.0, 1.0, 1.0) + a * color(0.5, 0.7, 1.0);
     }
@@ -194,7 +194,7 @@ class camera {
                 write_color(std::cout, color_buf[i][j]);
         std::clog << "print finished!\n";
     }
-    vec3 get_squard_bias() {
+    Vec3 get_squard_bias() {
         auto random_x = random_double() - 0.5;
         auto random_y = random_double() - 0.5;
         return random_x * viewport_delta_u + random_y * viewport_delta_v;
@@ -209,18 +209,18 @@ class camera {
     // 对一个像素区域内的各个点进行采样求平均
     // 若光圈大小不为0,则对其进行光圈模糊处理
     // 若快门速度不为0,则对其进行快门模糊处理
-    ray get_ray(int i, int j) {
+    Ray get_ray(int i, int j) {
         auto bias = get_squard_bias();
         auto pixel_center = pixel_origin_in_world + i * viewport_delta_v + j * viewport_delta_u + bias;
         auto ray_orig = (defocus_angle <= min_double_error) ? camera_center : defocus_disk_sample();
         auto ray_dir = pixel_center - ray_orig;
         auto ray_time = random_double(0.0, shutter_time);
-        return ray(ray_orig, ray_dir, ray_time);
+        return Ray(ray_orig, ray_dir, ray_time);
     }
 
    public:
-    camera() {}
-    camera(double image_w, double aspect_r, double _fov)
+    Camera() {}
+    Camera(double image_w, double aspect_r, double _fov)
         : image_width(image_w),
           aspect_ratio(aspect_r),
           fov(_fov) {
@@ -228,7 +228,7 @@ class camera {
         // 设置相机信息
         look_from = point3(0, 0, 0);
         look_to = point3(0, 0, -1);
-        vup = vec3(0, 1, 0);
+        vup = Vec3(0, 1, 0);
 
         // 初始化像素采样光线数量
         samples_per_pixel = 200;
@@ -256,7 +256,7 @@ class camera {
         // 初始化进程数量
         thread_num = 1;
     }
-    void add_model(shared_ptr<hittable> model) {
+    void add_model(shared_ptr<Hittable> model) {
         models.add(model);
     }
     void clear_model() {
@@ -265,13 +265,13 @@ class camera {
     void set_if_antialising(bool sign) {
         if_antialiasing = sign;
     }
-    void set_look_from(const vec3& v) {
+    void set_look_from(const Vec3& v) {
         look_from = v;
     }
-    void set_look_to(const vec3& v) {
+    void set_look_to(const Vec3& v) {
         look_to = v;
     }
-    void set_vup(const vec3& v) {
+    void set_vup(const Vec3& v) {
         vup = v;
     }
     void set_samples_per_pixel(int num) {

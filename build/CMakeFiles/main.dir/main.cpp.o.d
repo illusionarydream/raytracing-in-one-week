@@ -202,17 +202,18 @@ CMakeFiles/main.dir/main.cpp.o: \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/xmmintrin.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/mmintrin.h \
  /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/mm_malloc.h \
- /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/hittable_list.h \
- /usr/include/c++/13.2.1/vector /usr/include/c++/13.2.1/bits/stl_vector.h \
- /usr/include/c++/13.2.1/bits/stl_bvector.h \
- /usr/include/c++/13.2.1/bits/vector.tcc \
- /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/BVH.h \
+ /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/perlin.h \
  /usr/include/c++/13.2.1/algorithm \
  /usr/include/c++/13.2.1/bits/stl_algo.h \
  /usr/include/c++/13.2.1/bits/algorithmfwd.h \
  /usr/include/c++/13.2.1/bits/stl_heap.h \
  /usr/include/c++/13.2.1/bits/uniform_int_dist.h \
  /usr/include/c++/13.2.1/pstl/glue_algorithm_defs.h \
+ /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/hittable_list.h \
+ /usr/include/c++/13.2.1/vector /usr/include/c++/13.2.1/bits/stl_vector.h \
+ /usr/include/c++/13.2.1/bits/stl_bvector.h \
+ /usr/include/c++/13.2.1/bits/vector.tcc \
+ /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/BVH.h \
  /usr/include/c++/13.2.1/thread /usr/include/c++/13.2.1/bits/std_thread.h \
  /usr/include/c++/13.2.1/bits/this_thread_sleep.h \
  /usr/include/c++/13.2.1/bits/chrono.h /usr/include/c++/13.2.1/ratio \

@@ -1,17 +1,17 @@
 #ifndef RAY_H
 #define RAY_H
 #include "vec3.h"
-class ray {
+class Ray {
    public:
-    ray() {}
-    ray(const point3 &origin, const vec3 &direction, double _tm = 0.0) : orig(origin), dir(direction), tm(_tm) {}
-    vec3 at(const double &t) const {
+    Ray() {}
+    Ray(const point3 &origin, const Vec3 &direction, double _tm = 0.0) : orig(origin), dir(direction), tm(_tm) {}
+    Vec3 at(const double &t) const {
         return orig + t * dir;
     }
     point3 origin() const {
         return orig;
     }
-    vec3 direction() const {
+    Vec3 direction() const {
         return dir;
     }
     double time() const {
@@ -20,7 +20,7 @@ class ray {
 
    private:
     point3 orig;
-    vec3 dir;
+    Vec3 dir;
     double tm;
 };
 

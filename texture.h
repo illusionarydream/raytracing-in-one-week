@@ -4,15 +4,16 @@
 #include "color.h"
 #include "rtw_image.h"
 #include "math_materials.h"
+#include "perlin.h"
 #include <memory>
 using std::make_shared;
 using std::shared_ptr;
-class texture {
+class Texture {
    public:
-    virtual ~texture() = default;
+    virtual ~Texture() = default;
     virtual color get_texture_color(double u, double v, const point3 &p) const = 0;
 };
-class solid_color : public texture {
+class solid_color : public Texture {
    private:
     color color_value;
 
@@ -25,18 +26,18 @@ class solid_color : public texture {
         return color_value;
     }
 };
-class check_board : public texture {
+class Check_board : public Texture {
    private:
-    shared_ptr<texture> even_color;
-    shared_ptr<texture> odd_color;
+    shared_ptr<Texture> even_color;
+    shared_ptr<Texture> odd_color;
     double scale;
 
    public:
-    check_board(double _scale, shared_ptr<texture> _even_col, shared_ptr<texture> _odd_col)
+    Check_board(double _scale, shared_ptr<Texture> _even_col, shared_ptr<Texture> _odd_col)
         : scale(_scale),
           even_color(_even_col),
           odd_color(_odd_col) {}
-    check_board(double _scale, const color &_even_col, const color &_odd_col)
+    Check_board(double _scale, const color &_even_col, const color &_odd_col)
         : scale(_scale),
           even_color(make_shared<solid_color>(_even_col)),
           odd_color(make_shared<solid_color>(_odd_col)) {}
@@ -50,14 +51,14 @@ class check_board : public texture {
                                 : odd_color->get_texture_color(u, v, p);
     }
 };
-class image_texture : public texture {
+class Image_texture : public Texture {
    private:
-    rtw_image image;
+    Rtw_image image;
 
    public:
-    image_texture(const char *filename) : image(filename) {}
+    Image_texture(const char *filename) : image(filename) {}
     color get_texture_color(double u, double v, const point3 &p) const override {
-        auto standard_inv = interval(0.0, 1.0);
+        auto standard_inv = Interval(0.0, 1.0);
         u = standard_inv.clamp(u);
         v = 1.0 - standard_inv.clamp(v);
 
@@ -66,6 +67,16 @@ class image_texture : public texture {
 
         // std::clog << "i=" << i << " j=" << j << std::endl;
         return image.get_pixel_color(i, j);
+    }
+};
+class Noise_texture : public Texture {
+   private:
+    Perlin noise_tex;
+
+   public:
+    Noise_texture() {}
+    color get_texture_color(double u, double v, const point3 &p) const override {
+        return noise_tex.get_smooth_grey_noise_color(p);
     }
 };
 #endif

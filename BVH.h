@@ -5,30 +5,30 @@
 #include "hittable_list.h"
 #include "algorithm"
 
-class BVH_node : public hittable {
+class BVH_node : public Hittable {
    private:
     /* data */
     AABB BVH_node_box;
-    shared_ptr<hittable> left_node;
-    shared_ptr<hittable> right_node;
+    shared_ptr<Hittable> left_node;
+    shared_ptr<Hittable> right_node;
 
    private:
-    inline static bool compare_in_x(const shared_ptr<hittable> X, const shared_ptr<hittable> Y) {
+    inline static bool compare_in_x(const shared_ptr<Hittable> X, const shared_ptr<Hittable> Y) {
         return X->bounding_box().x.get_tmin() < Y->bounding_box().x.get_tmin();
     }
-    inline static bool compare_in_y(const shared_ptr<hittable> X, const shared_ptr<hittable> Y) {
+    inline static bool compare_in_y(const shared_ptr<Hittable> X, const shared_ptr<Hittable> Y) {
         return X->bounding_box().y.get_tmin() < Y->bounding_box().y.get_tmin();
     }
-    inline static bool compare_in_z(const shared_ptr<hittable> X, const shared_ptr<hittable> Y) {
+    inline static bool compare_in_z(const shared_ptr<Hittable> X, const shared_ptr<Hittable> Y) {
         return X->bounding_box().z.get_tmin() < Y->bounding_box().z.get_tmin();
     }
 
    public:
-    BVH_node(const hittable_list& obejcts_list)
+    BVH_node(const Hittable_list& obejcts_list)
         : BVH_node(obejcts_list.get_objects(), 0, obejcts_list.get_objects().size()) {}
     // 构建BVH树
-    BVH_node(const std::vector<shared_ptr<hittable>>& src_objects, size_t start, size_t end) {
-        std::vector<shared_ptr<hittable>> objects = src_objects;  // modifiedable vector
+    BVH_node(const std::vector<shared_ptr<Hittable>>& src_objects, size_t start, size_t end) {
+        std::vector<shared_ptr<Hittable>> objects = src_objects;  // modifiedable vector
         // 确定分割轴
         int divide_axis = random_int(0, 3);
         // 确定是哪个轴的比较函数
@@ -60,14 +60,14 @@ class BVH_node : public hittable {
         BVH_node_box = AABB(left_node->bounding_box(), right_node->bounding_box());
     }
 
-    bool hit(const ray& r, interval ray_t, hit_record& rec) const override {
+    bool hit(const Ray& r, Interval ray_t, Hit_record& rec) const override {
         // 整体如果未击中，则必定未击中
         if (BVH_node_box.if_hit(r, ray_t) == false)
             return false;
         // 左侧如果击中，则必定击中
         bool if_hit_left = left_node->hit(r, ray_t, rec);
         // 右侧如果击中，则击中
-        auto cur_interval = interval(ray_t.get_tmin(), if_hit_left == true ? rec.t : ray_t.get_tmax());
+        auto cur_interval = Interval(ray_t.get_tmin(), if_hit_left == true ? rec.t : ray_t.get_tmax());
         bool if_hit_right = right_node->hit(r, cur_interval, rec);
 
         return if_hit_right || if_hit_left;

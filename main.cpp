@@ -4,22 +4,23 @@ int main() {
     // *image_width=400
     // *aspect_ratio=16.0/9.0
     // *fov=90
-    int image_width = 800;
+    int image_width = 400;
     double aspect_ratio = 16.0 / 9.0;
     double fov = 20;
-    camera cam(image_width, aspect_ratio, fov);
+    Camera cam(image_width, aspect_ratio, fov);
 
     // *启用抗锯齿
     // cam.set_if_antialising(true);
-    auto earth_texture = make_shared<image_texture>("/home/illusionary/文档/c++_code/raytracing in one week/earthmap.jpg");
-    auto earth_surface = make_shared<Lambertian>(color(1.0, 1.0, 1.0), earth_texture);
-    auto globe = make_shared<sphere>(point3(0, 0, 0), 2, earth_surface);
+
+    // *设置纹理
+    auto pertext = make_shared<Noise_texture>();
 
     // *设置模型
-    cam.add_model(globe);
+    cam.add_model(make_shared<Sphere>(point3(0, -1000, 0), 1000, make_shared<Lambertian>(color(1.0, 1.0, 1.0), pertext)));
+    cam.add_model(make_shared<Sphere>(point3(0, 2, 0), 2, make_shared<Lambertian>(color(1.0, 1.0, 1.0), pertext)));
 
     // *设置相机视角
-    cam.set_look_from(point3(0, 0, 12));
+    cam.set_look_from(point3(13, 2, 3));
     cam.set_look_to(point3(0, 0, 0));
     cam.set_vup(point3(0, 1, 0));
 

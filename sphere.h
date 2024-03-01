@@ -6,17 +6,17 @@
 #include "material.h"
 #include "AABB.h"
 #include <cmath>
-class sphere : public hittable {
+class Sphere : public Hittable {
    public:
-    sphere() {}
-    sphere(const point3 &cen, double r, std::shared_ptr<material> _mat)
+    Sphere() {}
+    Sphere(const point3 &cen, double r, std::shared_ptr<Material> _mat)
         : origin_center(cen),
           radius(r),
           mat(_mat),
           if_move(false) {
         produce_bounding_box();
     }
-    sphere(const point3 &cen, double r, const vec3 &vel, std::shared_ptr<material> _mat)
+    Sphere(const point3 &cen, double r, const Vec3 &vel, std::shared_ptr<Material> _mat)
         : origin_center(cen),
           radius(r),
           mat(_mat),
@@ -24,7 +24,7 @@ class sphere : public hittable {
           velocity(vel) {
         produce_bounding_box();
     }
-    bool hit(const ray &r, interval ray_t, hit_record &rec) const override {
+    bool hit(const Ray &r, Interval ray_t, Hit_record &rec) const override {
         auto D = r.direction();
         auto O = r.origin();
         auto C = center(r.time());
@@ -45,13 +45,13 @@ class sphere : public hittable {
         }
         rec.t = root;
         rec.p = r.at(root);
-        vec3 outward_normal = (rec.p - C) / radius;
+        Vec3 outward_normal = (rec.p - C) / radius;
         get_texture_uv(outward_normal, rec.u, rec.v);
         rec.set_surface_normal(r, outward_normal);
         rec.mat = mat;
         return true;
     }
-    vec3 get_origin_center() {
+    Vec3 get_origin_center() {
         return origin_center;
     }
     double get_radius() {
@@ -67,20 +67,20 @@ class sphere : public hittable {
     // 半径
     double radius;
     // 材质
-    std::shared_ptr<material> mat;
+    std::shared_ptr<Material> mat;
     // 是否移动
     bool if_move;
     // 移动速度，目前仅仅模拟简单的直线运动
-    vec3 velocity;
+    Vec3 velocity;
     // bounding_box
     AABB sphere_box;
 
    private:
-    vec3 center(double t) const {
+    Vec3 center(double t) const {
         return origin_center + velocity * t;
     }
     void produce_bounding_box() {
-        auto rvec = vec3(radius, radius, radius);
+        auto rvec = Vec3(radius, radius, radius);
         // 设置曝光的总时长不会超过1，
         // 把bounding_box的运动局限在1中
         auto center0 = center(0);
@@ -89,7 +89,7 @@ class sphere : public hittable {
         AABB box2(center1 - rvec, center1 + rvec);
         sphere_box = AABB(box1, box2);
     }
-    void get_texture_uv(const vec3 &outward_normal, double &u, double &v) const {
+    void get_texture_uv(const Vec3 &outward_normal, double &u, double &v) const {
         auto unit_center_to_surface = unit_vector(outward_normal);
         auto X = unit_center_to_surface.x();
         auto Y = unit_center_to_surface.y();
