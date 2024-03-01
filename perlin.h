@@ -48,6 +48,10 @@ class Perlin {
         double v = p.y() - y_floor;
         double w = p.z() - z_floor;
 
+        u = u * u * (3 - 2 * u);
+        v = v * v * (3 - 2 * v);
+        w = w * w * (3 - 2 * w);
+
         double c[2][2][2];
         for (int i = 0; i < 2; i++)
             for (int j = 0; j < 2; j++)
