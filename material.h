@@ -32,6 +32,10 @@ class Lambertian : public Material {
         : albedo(attenuation),
           if_tex(true),
           tex(_tex) {}
+    Lambertian(shared_ptr<Texture> _tex)
+        : albedo(color(1.0, 1.0, 1.0)),
+          if_tex(true),
+          tex(_tex) {}
 
     color get_attenuation(const Hit_record& rec) const {
         if (if_tex == false)
@@ -75,6 +79,11 @@ class Metal : public Material {
     Metal(const color& attenuation, double f, shared_ptr<Texture> _tex)
         : albedo(attenuation),
           fuzz(f < 1.0 - min_double_error ? f : 1.0 - min_double_error),
+          if_tex(true),
+          tex(_tex) {}
+    Metal(double f, shared_ptr<Texture> _tex)
+        : albedo(color(1.0, 1.0, 1.0)),
+          fuzz(f),
           if_tex(true),
           tex(_tex) {}
 
@@ -124,6 +133,11 @@ class Dielectric : public Material {
           if_tex(false) {}
     Dielectric(const Vec3& attentuation, double etai_, shared_ptr<Texture> _tex)
         : albedo(attentuation),
+          etai_over_etat(etai_),
+          if_tex(true),
+          tex(_tex) {}
+    Dielectric(double etai_, shared_ptr<Texture> _tex)
+        : albedo(color(1.0, 1.0, 1.0)),
           etai_over_etat(etai_),
           if_tex(true),
           tex(_tex) {}
