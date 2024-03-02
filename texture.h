@@ -72,11 +72,20 @@ class Image_texture : public Texture {
 class Noise_texture : public Texture {
    private:
     Perlin noise_tex;
+    double scale;
 
    public:
-    Noise_texture() {}
+    Noise_texture() : scale(1.0) {}
+    Noise_texture(double _sc) : scale(_sc) {}
     color get_texture_color(double u, double v, const point3 &p) const override {
-        return noise_tex.get_smooth_grey_noise_color(p);
+        // scale
+        auto p_after_scale = p * scale;
+        // get grey noise color
+        auto noise_color = noise_tex.get_turb_grey_noise_color(p_after_scale, 4);
+        // 一些后期变换
+        noise_color = color(1.0, 1.0, 1.0) * 0.5 * (1 + std::sin(p_after_scale.z() + 10 * noise_color.x()));
+
+        return noise_color;
     }
 };
 #endif

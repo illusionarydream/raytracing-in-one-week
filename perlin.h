@@ -7,7 +7,7 @@
 class Perlin {
    private:
     static const int point_count = 256;
-    double *ranfloat;
+    Vec3 *ranvec;
     int *perm_x;
     int *perm_y;
     int *perm_z;
@@ -24,20 +24,13 @@ class Perlin {
 
    public:
     Perlin() {
-        ranfloat = new double[point_count];
+        ranvec = new Vec3[point_count];
         for (int i = 0; i < 256; i++)
-            ranfloat[i] = random_double();
+            ranvec[i] = random_unit_vector();
 
         perm_x = generate_permute_list();
         perm_y = generate_permute_list();
         perm_z = generate_permute_list();
-    }
-    color get_grey_noise_color(const point3 &p) const {
-        auto i = int(p.x() * 4) & 255;
-        auto j = int(p.y() * 4) & 255;
-        auto k = int(p.z() * 4) & 255;
-        auto grey = ranfloat[i ^ j ^ k];
-        return color(grey, grey, grey);
     }
     color get_smooth_grey_noise_color(const point3 &p) const {
         int x_floor = int(std::floor(p.x()));
@@ -48,26 +41,46 @@ class Perlin {
         double v = p.y() - y_floor;
         double w = p.z() - z_floor;
 
+        double uu = u;
+        double vv = v;
+        double ww = w;
+
         u = u * u * (3 - 2 * u);
         v = v * v * (3 - 2 * v);
         w = w * w * (3 - 2 * w);
 
-        double c[2][2][2];
+        Vec3 c[2][2][2];
         for (int i = 0; i < 2; i++)
             for (int j = 0; j < 2; j++)
                 for (int k = 0; k < 2; k++)
-                    c[i][j][k] = ranfloat[perm_x[(x_floor + i) & 255] ^
-                                          perm_y[(y_floor + j) & 255] ^
-                                          perm_z[(z_floor + k) & 255]];
+                    c[i][j][k] = ranvec[perm_x[(x_floor + i) & 255] ^
+                                        perm_y[(y_floor + j) & 255] ^
+                                        perm_z[(z_floor + k) & 255]];
 
         double grey_sum = 0;
         for (int i = 0; i < 2; i++)
             for (int j = 0; j < 2; j++)
-                for (int k = 0; k < 2; k++)
+                for (int k = 0; k < 2; k++) {
+                    Vec3 weight_vec(uu - i, vv - j, ww - k);
                     grey_sum += (i * u + (1 - i) * (1 - u)) *
                                 (j * v + (1 - j) * (1 - v)) *
-                                (k * w + (1 - k) * (1 - w)) * c[i][j][k];
+                                (k * w + (1 - k) * (1 - w)) *
+                                dot(c[i][j][k], weight_vec);
+                }
+        grey_sum = (grey_sum + 1.0) / 2;
         return color(grey_sum, grey_sum, grey_sum);
+    }
+
+    color get_turb_grey_noise_color(const point3 &p, int depth = 7) const {
+        color accum(0.0, 0.0, 0.0);
+        auto temp_p = p;
+        auto weight = 1.0;
+        while (depth--) {
+            accum += weight * (2 * get_smooth_grey_noise_color(temp_p) - color(1.0, 1.0, 1.0));
+            weight *= 0.5;
+            temp_p *= 2;
+        }
+        return accum.x() > 0.0 ? accum : -accum;
     }
 };
 

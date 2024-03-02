@@ -13,7 +13,7 @@ int main() {
     // cam.set_if_antialising(true);
 
     // *设置纹理
-    auto pertext = make_shared<Noise_texture>();
+    auto pertext = make_shared<Noise_texture>(4);
 
     // *设置模型
     cam.add_model(make_shared<Sphere>(point3(0, -1000, 0), 1000, make_shared<Lambertian>(color(1.0, 1.0, 1.0), pertext)));
