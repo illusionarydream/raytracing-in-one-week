@@ -45,6 +45,9 @@ class Camera {
     // 模型信息
     Hittable_list models;
 
+    // 背景颜色
+    color background_color;
+
     // 视口坐标系基向量
     Vec3 viewport_u;
     Vec3 viewport_v;
@@ -151,22 +154,28 @@ class Camera {
 
     // *render the real image
     color render_true_color(const Ray& r, const Hittable& models) {
+        // 设置交点
         Hit_record rec;
+        // 是否击打到相关物体表面
         bool if_hit = models.hit(r, Interval(min_double_error, infinity), rec);
-
-        if (if_hit) {
-            // *to generate true Lambertian reflectance
-            Ray scattered_ray;
-            color attenuation;
-            rec.mat->scatter(r, rec, attenuation, scattered_ray);
-            if (if_next_bounce(next_bounce_ratio))
-                return attenuation * render_true_color(scattered_ray, models) / next_bounce_ratio;
+        // 如果没有击打到物体的表面的话，就返回背景颜色
+        if (!if_hit)
+            return background_color;
+        // 如果击打到物体的表面的话，就随机确定下一次是否继续进行光的弹射
+        if (!if_next_bounce(next_bounce_ratio))
             return color(0.0, 0.0, 0.0);
-        }
-
-        Vec3 unit_direction = unit_vector(r.direction());
-        auto a = 0.5 * (unit_direction.y() + 1.0);
-        return (1.0 - a) * color(1.0, 1.0, 1.0) + a * color(0.5, 0.7, 1.0);
+        // 得到自发光的颜色
+        color emission_color = rec.mat->emitted(rec.u, rec.v, rec.p);
+        // 设置下一次发射的光线
+        Ray scattered_ray;
+        color attenuation;
+        bool if_scattered = rec.mat->scatter(r, rec, attenuation, scattered_ray);
+        // 如果没有发生继续的散射，则直接返回光源颜色
+        if (!if_scattered)
+            return emission_color;
+        // 如果发生继续的散射，则返回散射颜色和自发光颜色
+        color scatter_color = attenuation * render_true_color(scattered_ray, models) / next_bounce_ratio;
+        return scatter_color + emission_color;
     }
 
     // *render the depth image
@@ -283,6 +292,9 @@ class Camera {
 
         // 初始化不启用抗锯齿
         if_antialiasing = false;
+
+        // 设置背景颜色为（1.0,1.0,1.0）
+        background_color = color(1.0, 1.0, 1.0);
     }
     void add_model(shared_ptr<Hittable> model) {
         models.add(model);
@@ -328,6 +340,9 @@ class Camera {
     }
     void set_if_depth_output(bool if_depth) {
         if_depth_output = if_depth;
+    }
+    void set_background_color(const color& _bc) {
+        background_color = _bc;
     }
     void Initialize() {
         initialize();

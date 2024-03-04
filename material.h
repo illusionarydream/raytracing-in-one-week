@@ -10,7 +10,9 @@ class Hit_record;
 class Material {
    public:
     virtual ~Material() = default;
-
+    virtual color emitted(double u, double v, const point3& p) const {
+        return color(0.0, 0.0, 0.0);
+    }
     // 根据入射光，反射点，最后得到散射光对RGB三通道的削弱程度和反射光线
     virtual bool scatter(const Ray& r_in, const Hit_record& rec, color& attenuation, Ray& scattered) const = 0;
 };
@@ -169,4 +171,30 @@ class Dielectric : public Material {
         return true;
     }
 };
+class Diffuse_light : public Material {
+   private:
+    shared_ptr<Texture> emit;
+    color albedo;
+
+   public:
+    Diffuse_light(shared_ptr<Texture> _emit)
+        : albedo(color(1.0, 1.0, 1.0)),
+          emit(_emit) {}
+    Diffuse_light(const Vec3& attentuation, shared_ptr<Texture> _emit)
+        : albedo(attentuation),
+          emit(_emit) {}
+    Diffuse_light(const color& c)
+        : albedo(color(1.0, 1.0, 1.0)),
+          emit(make_shared<solid_color>(c)) {}
+
+    bool scatter(const Ray& r_in, const Hit_record& rec, color& attenuation, Ray& refracted)
+        const override {
+        return false;
+    }
+    color emitted(double u, double v, const point3& p)
+        const override {
+        return emit->get_texture_color(u, v, p);
+    }
+};
+
 #endif

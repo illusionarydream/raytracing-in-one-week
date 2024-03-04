@@ -4,7 +4,7 @@ int main() {
     // *image_width=400
     // *aspect_ratio=16.0/9.0
     // *fov=90
-    int image_width = 800;
+    int image_width = 200;
     double aspect_ratio = 16.0 / 9.0;
     double fov = 80;
     Camera cam(image_width, aspect_ratio, fov);
@@ -14,6 +14,9 @@ int main() {
 
     // *设置纹理
     auto pertext = make_shared<Noise_texture>(4);
+
+    // *设置背景颜色
+    cam.set_background_color(color(0.7, 0.8, 1.00));
 
     // *设置表面
     auto left_red = make_shared<Lambertian>(color(1.0, 0.2, 0.2));
