@@ -13,6 +13,7 @@ CMakeFiles/main.dir/main.cpp.o: /home/illusionary/文档/c++_code/raytracing\ in
   /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/material.h \
   /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/math_materials.h \
   /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/perlin.h \
+  /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/quad.h \
   /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/ray.h \
   /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/rtw_image.h \
   /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/sphere.h \
@@ -425,19 +426,7 @@ CMakeFiles/main.dir/main.cpp.o: /home/illusionary/文档/c++_code/raytracing\ in
 
 /usr/include/bits/stdlib-float.h:
 
-/usr/include/c++/13.2.1/bits/basic_string.h:
-
-/usr/include/sys/select.h:
-
-/usr/include/c++/13.2.1/bits/alloc_traits.h:
-
-/usr/include/c++/13.2.1/bits/cpp_type_traits.h:
-
-/usr/include/bits/time.h:
-
-/usr/include/bits/types/__mbstate_t.h:
-
-/usr/include/bits/stdio_lim.h:
+/usr/include/bits/thread-shared-types.h:
 
 /usr/include/c++/13.2.1/bits/stl_uninitialized.h:
 
@@ -445,19 +434,15 @@ CMakeFiles/main.dir/main.cpp.o: /home/illusionary/文档/c++_code/raytracing\ in
 
 /usr/include/bits/atomic_wide_counter.h:
 
+/usr/include/bits/types/__mbstate_t.h:
+
+/usr/include/bits/time.h:
+
+/usr/include/bits/stdio_lim.h:
+
 /usr/include/bits/local_lim.h:
 
 /usr/include/bits/locale.h:
-
-/usr/include/bits/endianness.h:
-
-/usr/include/c++/13.2.1/tuple:
-
-/usr/include/bits/libm-simd-decl-stubs.h:
-
-/usr/include/c++/13.2.1/bits/locale_classes.tcc:
-
-/usr/include/c++/13.2.1/bits/memoryfwd.h:
 
 /home/illusionary/package/stb/stb_image.h:
 
@@ -491,6 +476,10 @@ CMakeFiles/main.dir/main.cpp.o: /home/illusionary/文档/c++_code/raytracing\ in
 
 /usr/include/bits/struct_rwlock.h:
 
+/home/illusionary/文档/c++_code/raytracing\ in\ one\ week/quad.h:
+
+/home/illusionary/文档/c++_code/raytracing\ in\ one\ week/ray.h:
+
 /usr/include/bits/endian.h:
 
 /usr/include/c++/13.2.1/clocale:
@@ -517,6 +506,24 @@ CMakeFiles/main.dir/main.cpp.o: /home/illusionary/文档/c++_code/raytracing\ in
 
 /usr/include/bits/math-vector.h:
 
+/usr/include/bits/endianness.h:
+
+/usr/include/c++/13.2.1/tuple:
+
+/usr/include/bits/libm-simd-decl-stubs.h:
+
+/usr/include/c++/13.2.1/bits/locale_classes.tcc:
+
+/usr/include/c++/13.2.1/bits/memoryfwd.h:
+
+/usr/include/c++/13.2.1/bits/basic_string.h:
+
+/usr/include/sys/select.h:
+
+/usr/include/c++/13.2.1/bits/alloc_traits.h:
+
+/usr/include/c++/13.2.1/bits/cpp_type_traits.h:
+
 /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/stddef.h:
 
 /usr/include/assert.h:
@@ -538,14 +545,6 @@ CMakeFiles/main.dir/main.cpp.o: /home/illusionary/文档/c++_code/raytracing\ in
 /usr/include/wchar.h:
 
 /usr/include/bits/posix1_lim.h:
-
-/usr/include/bits/floatn-common.h:
-
-/home/illusionary/文档/c++_code/raytracing\ in\ one\ week/material.h:
-
-/usr/include/gnu/stubs.h:
-
-/usr/include/c++/13.2.1/bits/locale_facets.tcc:
 
 /usr/include/bits/types/struct_timeval.h:
 
@@ -579,7 +578,13 @@ CMakeFiles/main.dir/main.cpp.o: /home/illusionary/文档/c++_code/raytracing\ in
 
 /usr/include/c++/13.2.1/tr1/bessel_function.tcc:
 
-/home/illusionary/文档/c++_code/raytracing\ in\ one\ week/ray.h:
+/home/illusionary/文档/c++_code/raytracing\ in\ one\ week/material.h:
+
+/usr/include/gnu/stubs.h:
+
+/usr/include/c++/13.2.1/bits/locale_facets.tcc:
+
+/usr/include/bits/floatn-common.h:
 
 /usr/include/bits/floatn.h:
 
@@ -660,8 +665,6 @@ CMakeFiles/main.dir/main.cpp.o: /home/illusionary/文档/c++_code/raytracing\ in
 /usr/include/c++/13.2.1/bits/ptr_traits.h:
 
 /usr/include/bits/types/time_t.h:
-
-/usr/include/bits/thread-shared-types.h:
 
 /usr/include/c++/13.2.1/bits/istream.tcc:
 

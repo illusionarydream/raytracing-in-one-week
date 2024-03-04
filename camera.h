@@ -9,6 +9,7 @@
 #include "material.h"
 #include "BVH.h"
 #include "thread"
+#include "quad.h"
 // *相机类型用于照相，所有的整体渲染过程都在这个类型里完成，就像是相机拍摄得到一张照片
 class Camera {
    private:
@@ -92,6 +93,9 @@ class Camera {
     // 多线程数量
     int thread_num;
 
+    // 是否输出深度图
+    bool if_depth_output;
+
    private:
     // *函数
     void initialize() {
@@ -131,9 +135,6 @@ class Camera {
         defocus_disk_u = u * defocus_radius;
         defocus_disk_v = v * defocus_radius;
 
-        // 默认antialiasing是false
-        if_antialiasing = false;
-
         // 初始化color_buf
         color_buf = new color*[image_height];
         for (int i = 0; i < image_height; i++)
@@ -148,8 +149,8 @@ class Camera {
         return (rec.p - camera_center).length();
     }
 
-    // *render a single light
-    color raycolor(const Ray& r, const Hittable& models) {
+    // *render the real image
+    color render_true_color(const Ray& r, const Hittable& models) {
         Hit_record rec;
         bool if_hit = models.hit(r, Interval(min_double_error, infinity), rec);
 
@@ -159,13 +160,34 @@ class Camera {
             color attenuation;
             rec.mat->scatter(r, rec, attenuation, scattered_ray);
             if (if_next_bounce(next_bounce_ratio))
-                return attenuation * raycolor(scattered_ray, models) / next_bounce_ratio;
+                return attenuation * render_true_color(scattered_ray, models) / next_bounce_ratio;
             return color(0.0, 0.0, 0.0);
         }
 
         Vec3 unit_direction = unit_vector(r.direction());
         auto a = 0.5 * (unit_direction.y() + 1.0);
         return (1.0 - a) * color(1.0, 1.0, 1.0) + a * color(0.5, 0.7, 1.0);
+    }
+
+    // *render the depth image
+    color render_depth_color(const Ray& r, const Hittable& models) {
+        Hit_record rec;
+        bool if_hit = models.hit(r, Interval(min_double_error, infinity), rec);
+        if (if_hit)
+            return color(1.0, 1.0, 1.0);
+        auto distance = (rec.p - r.origin()).length();
+        auto depth = (distance - 4) / 10;
+        return color(depth, depth, depth);
+    }
+
+    // *render a single light
+    color raycolor(const Ray& r, const Hittable& models) {
+        color ans;
+        if (if_depth_output == true)
+            ans = render_depth_color(r, models);
+        else
+            ans = render_true_color(r, models);
+        return ans;
     }
 
     void antialiasing() {
@@ -255,6 +277,12 @@ class Camera {
 
         // 初始化进程数量
         thread_num = 1;
+
+        // 初始化输出不是深度图
+        if_depth_output = false;
+
+        // 初始化不启用抗锯齿
+        if_antialiasing = false;
     }
     void add_model(shared_ptr<Hittable> model) {
         models.add(model);
@@ -297,6 +325,9 @@ class Camera {
     }
     void set_thread_num(int _num) {
         thread_num = _num;
+    }
+    void set_if_depth_output(bool if_depth) {
+        if_depth_output = if_depth;
     }
     void Initialize() {
         initialize();

@@ -3,8 +3,8 @@
 #include "hittable.h"
 #include <memory>
 #include <vector>
-#define shared_ptr std::shared_ptr
-#define make_shared std::make_shared
+using std::make_shared;
+using std::shared_ptr;
 
 // *对于刚性物体而言确实如此，一条光线和一系列刚性物体理应只有一个交点
 class Hittable_list : public Hittable {

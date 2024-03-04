@@ -43,6 +43,7 @@ class Sphere : public Hittable {
             if (ray_t.surrounds(root))
                 return false;
         }
+
         rec.t = root;
         rec.p = r.at(root);
         Vec3 outward_normal = (rec.p - C) / radius;

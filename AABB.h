@@ -12,15 +12,21 @@ class AABB {
     AABB(const Interval& _x, const Interval& _y, const Interval& _z)
         : x(_x),
           y(_y),
-          z(_z) {}
+          z(_z) {
+        padding();
+    }
     AABB(const point3& a, const point3& b)
         : x(std::min(a.x(), b.x()), std::max(a.x(), b.x())),
           y(std::min(a.y(), b.y()), std::max(a.y(), b.y())),
-          z(std::min(a.z(), b.z()), std::max(a.z(), b.z())) {}
+          z(std::min(a.z(), b.z()), std::max(a.z(), b.z())) {
+        padding();
+    }
     AABB(const AABB& box1, const AABB& box2)
         : x(box1.x, box2.x),
           y(box1.y, box2.y),
-          z(box1.z, box2.z) {}
+          z(box1.z, box2.z) {
+        padding();
+    }
 
     const Interval& axis(int n) const {
         if (n == 0)
@@ -45,6 +51,14 @@ class AABB {
                 return false;
         }
         return true;
+    }
+
+    void padding() {
+        double delta = 0.0001;
+        x = x.get_dist() > delta ? x : x.expand(delta);
+        y = y.get_dist() > delta ? y : y.expand(delta);
+        z = z.get_dist() > delta ? z : z.expand(delta);
+        return;
     }
 };
 #endif

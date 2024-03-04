@@ -12,7 +12,7 @@ class Hit_record {
     // 交点法线信息
     Vec3 normal;
     // 交点距离信息
-    double t;
+    double t = infinity;
     // 交点法线朝向
     bool front_face;
     // 交点材质信息
