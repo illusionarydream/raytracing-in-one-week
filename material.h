@@ -10,42 +10,42 @@ class Hit_record;
 class Material {
    public:
     virtual ~Material() = default;
-    virtual color emitted(double u, double v, const point3& p) const {
-        return color(0.0, 0.0, 0.0);
+    virtual Color emitted(double u, double v, const Point3& p) const {
+        return Color(0.0, 0.0, 0.0);
     }
     // 根据入射光，反射点，最后得到散射光对RGB三通道的削弱程度和反射光线
-    virtual bool scatter(const Ray& r_in, const Hit_record& rec, color& attenuation, Ray& scattered) const = 0;
+    virtual bool scatter(const Ray& r_in, const Hit_record& rec, Color& attenuation, Ray& scattered) const = 0;
 };
 
 // * 发生漫反射
 class Lambertian : public Material {
    private:
     // 吸收率
-    color albedo;
+    Color albedo;
     // 材质贴图
     shared_ptr<Texture> tex;
     bool if_tex;
 
    public:
-    Lambertian(const color& attenuation)
+    Lambertian(const Color& attenuation)
         : albedo(attenuation),
           if_tex(false) {}
-    Lambertian(const color& attenuation, shared_ptr<Texture> _tex)
+    Lambertian(const Color& attenuation, shared_ptr<Texture> _tex)
         : albedo(attenuation),
           if_tex(true),
           tex(_tex) {}
     Lambertian(shared_ptr<Texture> _tex)
-        : albedo(color(1.0, 1.0, 1.0)),
+        : albedo(Color(1.0, 1.0, 1.0)),
           if_tex(true),
           tex(_tex) {}
 
-    color get_attenuation(const Hit_record& rec) const {
+    Color get_attenuation(const Hit_record& rec) const {
         if (if_tex == false)
             return albedo;
         auto tex_attenuation = tex->get_texture_color(rec.u, rec.v, rec.p);
         return albedo * tex_attenuation;
     }
-    bool scatter(const Ray& r_in, const Hit_record& rec, color& attenuation, Ray& scattered)
+    bool scatter(const Ray& r_in, const Hit_record& rec, Color& attenuation, Ray& scattered)
         const override {
         auto new_direction = rec.normal + random_in_unit_sphere();
 
@@ -62,7 +62,7 @@ class Lambertian : public Material {
 class Metal : public Material {
    private:
     // 吸收率
-    color albedo;
+    Color albedo;
     // 材质贴图
     bool if_tex;
     shared_ptr<Texture> tex;
@@ -71,31 +71,31 @@ class Metal : public Material {
 
    public:
     Metal(double f)
-        : albedo(color(1.0, 1.0, 1.0)),
+        : albedo(Color(1.0, 1.0, 1.0)),
           fuzz(f < 1.0 - min_double_error ? f : 1.0 - min_double_error),
           if_tex(false) {}
-    Metal(const color& attenuation, double f)
+    Metal(const Color& attenuation, double f)
         : albedo(attenuation),
           fuzz(f < 1.0 - min_double_error ? f : 1.0 - min_double_error),
           if_tex(false) {}
-    Metal(const color& attenuation, double f, shared_ptr<Texture> _tex)
+    Metal(const Color& attenuation, double f, shared_ptr<Texture> _tex)
         : albedo(attenuation),
           fuzz(f < 1.0 - min_double_error ? f : 1.0 - min_double_error),
           if_tex(true),
           tex(_tex) {}
     Metal(double f, shared_ptr<Texture> _tex)
-        : albedo(color(1.0, 1.0, 1.0)),
+        : albedo(Color(1.0, 1.0, 1.0)),
           fuzz(f),
           if_tex(true),
           tex(_tex) {}
 
-    color get_attenuation(const Hit_record& rec) const {
+    Color get_attenuation(const Hit_record& rec) const {
         if (if_tex == false)
             return albedo;
         auto tex_attenuation = tex->get_texture_color(rec.u, rec.v, rec.p);
         return albedo * tex_attenuation;
     }
-    bool scatter(const Ray& r_in, const Hit_record& rec, color& attenuation, Ray& reflected)
+    bool scatter(const Ray& r_in, const Hit_record& rec, Color& attenuation, Ray& reflected)
         const override {
         Vec3 new_direction = reflect(r_in.direction(), rec.normal);
         reflected = Ray(rec.p, unit_vector(new_direction + fuzz * random_in_unit_sphere()), r_in.time());
@@ -107,7 +107,7 @@ class Metal : public Material {
 // * 可以发生折射也可以发生反射
 class Dielectric : public Material {
    private:
-    color albedo;
+    Color albedo;
     // *默认是表面外比表面内
     bool if_tex;
     shared_ptr<Texture> tex;
@@ -126,7 +126,7 @@ class Dielectric : public Material {
 
    public:
     Dielectric(double etai_)
-        : albedo(color(1.0, 1.0, 1.0)),
+        : albedo(Color(1.0, 1.0, 1.0)),
           etai_over_etat(etai_),
           if_tex(false) {}
     Dielectric(const Vec3& attentuation, double etai_)
@@ -139,18 +139,18 @@ class Dielectric : public Material {
           if_tex(true),
           tex(_tex) {}
     Dielectric(double etai_, shared_ptr<Texture> _tex)
-        : albedo(color(1.0, 1.0, 1.0)),
+        : albedo(Color(1.0, 1.0, 1.0)),
           etai_over_etat(etai_),
           if_tex(true),
           tex(_tex) {}
 
-    color get_attenuation(const Hit_record& rec) const {
+    Color get_attenuation(const Hit_record& rec) const {
         if (if_tex == false)
             return albedo;
         auto tex_attenuation = tex->get_texture_color(rec.u, rec.v, rec.p);
         return albedo * tex_attenuation;
     }
-    bool scatter(const Ray& r_in, const Hit_record& rec, color& attenuation, Ray& refracted)
+    bool scatter(const Ray& r_in, const Hit_record& rec, Color& attenuation, Ray& refracted)
         const override {
         Vec3 new_direction;
         attenuation = get_attenuation(rec);
@@ -174,24 +174,24 @@ class Dielectric : public Material {
 class Diffuse_light : public Material {
    private:
     shared_ptr<Texture> emit;
-    color albedo;
+    Color albedo;
 
    public:
     Diffuse_light(shared_ptr<Texture> _emit)
-        : albedo(color(1.0, 1.0, 1.0)),
+        : albedo(Color(1.0, 1.0, 1.0)),
           emit(_emit) {}
     Diffuse_light(const Vec3& attentuation, shared_ptr<Texture> _emit)
         : albedo(attentuation),
           emit(_emit) {}
-    Diffuse_light(const color& c)
-        : albedo(color(1.0, 1.0, 1.0)),
+    Diffuse_light(const Color& c)
+        : albedo(Color(1.0, 1.0, 1.0)),
           emit(make_shared<solid_color>(c)) {}
 
-    bool scatter(const Ray& r_in, const Hit_record& rec, color& attenuation, Ray& refracted)
+    bool scatter(const Ray& r_in, const Hit_record& rec, Color& attenuation, Ray& refracted)
         const override {
         return false;
     }
-    color emitted(double u, double v, const point3& p)
+    Color emitted(double u, double v, const Point3& p)
         const override {
         return emit->get_texture_color(u, v, p);
     }

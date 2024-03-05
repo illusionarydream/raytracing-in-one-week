@@ -8,7 +8,7 @@ class Material;
 class Hit_record {
    public:
     // 交点信息
-    point3 p;
+    Point3 p;
     // 交点法线信息
     Vec3 normal;
     // 交点距离信息

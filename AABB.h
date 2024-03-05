@@ -15,7 +15,7 @@ class AABB {
           z(_z) {
         padding();
     }
-    AABB(const point3& a, const point3& b)
+    AABB(const Point3& a, const Point3& b)
         : x(std::min(a.x(), b.x()), std::max(a.x(), b.x())),
           y(std::min(a.y(), b.y()), std::max(a.y(), b.y())),
           z(std::min(a.z(), b.z()), std::max(a.z(), b.z())) {

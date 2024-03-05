@@ -9,14 +9,14 @@
 class Sphere : public Hittable {
    public:
     Sphere() {}
-    Sphere(const point3 &cen, double r, std::shared_ptr<Material> _mat)
+    Sphere(const Point3 &cen, double r, std::shared_ptr<Material> _mat)
         : origin_center(cen),
           radius(r),
           mat(_mat),
           if_move(false) {
         produce_bounding_box();
     }
-    Sphere(const point3 &cen, double r, const Vec3 &vel, std::shared_ptr<Material> _mat)
+    Sphere(const Point3 &cen, double r, const Vec3 &vel, std::shared_ptr<Material> _mat)
         : origin_center(cen),
           radius(r),
           mat(_mat),
@@ -64,7 +64,7 @@ class Sphere : public Hittable {
 
    private:
     // 球心
-    point3 origin_center;
+    Point3 origin_center;
     // 半径
     double radius;
     // 材质

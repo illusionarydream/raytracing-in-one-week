@@ -38,9 +38,9 @@ class Rtw_image {
     int get_height() const {
         return data == nullptr ? 0 : image_height;
     }
-    color get_pixel_color(int x, int y) const {
+    Color get_pixel_color(int x, int y) const {
         if (data == nullptr)
-            return color(0.0, 0.0, 0.0);
+            return Color(0.0, 0.0, 0.0);
 
         x = std::min(x, image_width);
         x = std::max(x, 0);
@@ -52,7 +52,7 @@ class Rtw_image {
         double G = int(pixel_address[1]) / 255.99;
         double B = int(pixel_address[2]) / 255.99;
 
-        return color(R, G, B);
+        return Color(R, G, B);
     }
 };
 

@@ -32,7 +32,7 @@ class Perlin {
         perm_y = generate_permute_list();
         perm_z = generate_permute_list();
     }
-    color get_smooth_grey_noise_color(const point3 &p) const {
+    Color get_smooth_grey_noise_color(const Point3 &p) const {
         int x_floor = int(std::floor(p.x()));
         int y_floor = int(std::floor(p.y()));
         int z_floor = int(std::floor(p.z()));
@@ -68,15 +68,15 @@ class Perlin {
                                 dot(c[i][j][k], weight_vec);
                 }
         grey_sum = (grey_sum + 1.0) / 2;
-        return color(grey_sum, grey_sum, grey_sum);
+        return Color(grey_sum, grey_sum, grey_sum);
     }
 
-    color get_turb_grey_noise_color(const point3 &p, int depth = 7) const {
-        color accum(0.0, 0.0, 0.0);
+    Color get_turb_grey_noise_color(const Point3 &p, int depth = 7) const {
+        Color accum(0.0, 0.0, 0.0);
         auto temp_p = p;
         auto weight = 1.0;
         while (depth--) {
-            accum += weight * (2 * get_smooth_grey_noise_color(temp_p) - color(1.0, 1.0, 1.0));
+            accum += weight * (2 * get_smooth_grey_noise_color(temp_p) - Color(1.0, 1.0, 1.0));
             weight *= 0.5;
             temp_p *= 2;
         }

@@ -20,17 +20,17 @@ class Camera {
     int image_height;
 
     // 相机位置
-    point3 camera_center;
+    Point3 camera_center;
 
     // 相机朝向
-    point3 look_from;
-    point3 look_to;
-    point3 vup;
+    Point3 look_from;
+    Point3 look_to;
+    Point3 vup;
 
     // 相机坐标系
-    point3 u;
-    point3 v;
-    point3 w;
+    Point3 u;
+    Point3 v;
+    Point3 w;
 
     // 焦距
     double focal_dist;
@@ -46,7 +46,7 @@ class Camera {
     Hittable_list models;
 
     // 背景颜色
-    color background_color;
+    Color background_color;
 
     // 视口坐标系基向量
     Vec3 viewport_u;
@@ -69,7 +69,7 @@ class Camera {
         {1.0 / 16, 2.0 / 16, 1.0 / 16}};
 
     // 图片RGB缓存
-    color** color_buf;
+    Color** color_buf;
 
     // 对一个像素点采样的光线数量
     int samples_per_pixel;
@@ -139,9 +139,9 @@ class Camera {
         defocus_disk_v = v * defocus_radius;
 
         // 初始化color_buf
-        color_buf = new color*[image_height];
+        color_buf = new Color*[image_height];
         for (int i = 0; i < image_height; i++)
-            color_buf[i] = new color[image_width];
+            color_buf[i] = new Color[image_width];
 
         // 初始化BVH tree
         if (if_BVH_optimization == true)
@@ -153,7 +153,7 @@ class Camera {
     }
 
     // *render the real image
-    color render_true_color(const Ray& r, const Hittable& models) {
+    Color render_true_color(const Ray& r, const Hittable& models) {
         // 设置交点
         Hit_record rec;
         // 是否击打到相关物体表面
@@ -163,35 +163,35 @@ class Camera {
             return background_color;
         // 如果击打到物体的表面的话，就随机确定下一次是否继续进行光的弹射
         if (!if_next_bounce(next_bounce_ratio))
-            return color(0.0, 0.0, 0.0);
+            return Color(0.0, 0.0, 0.0);
         // 得到自发光的颜色
-        color emission_color = rec.mat->emitted(rec.u, rec.v, rec.p);
+        Color emission_color = rec.mat->emitted(rec.u, rec.v, rec.p);
         // 设置下一次发射的光线
         Ray scattered_ray;
-        color attenuation;
+        Color attenuation;
         bool if_scattered = rec.mat->scatter(r, rec, attenuation, scattered_ray);
         // 如果没有发生继续的散射，则直接返回光源颜色
         if (!if_scattered)
             return emission_color;
         // 如果发生继续的散射，则返回散射颜色和自发光颜色
-        color scatter_color = attenuation * render_true_color(scattered_ray, models) / next_bounce_ratio;
+        Color scatter_color = attenuation * render_true_color(scattered_ray, models) / next_bounce_ratio;
         return scatter_color + emission_color;
     }
 
     // *render the depth image
-    color render_depth_color(const Ray& r, const Hittable& models) {
+    Color render_depth_color(const Ray& r, const Hittable& models) {
         Hit_record rec;
         bool if_hit = models.hit(r, Interval(min_double_error, infinity), rec);
         if (if_hit)
-            return color(1.0, 1.0, 1.0);
+            return Color(1.0, 1.0, 1.0);
         auto distance = (rec.p - r.origin()).length();
         auto depth = (distance - 4) / 10;
-        return color(depth, depth, depth);
+        return Color(depth, depth, depth);
     }
 
     // *render a single light
-    color raycolor(const Ray& r, const Hittable& models) {
-        color ans;
+    Color raycolor(const Ray& r, const Hittable& models) {
+        Color ans;
         if (if_depth_output == true)
             ans = render_depth_color(r, models);
         else
@@ -204,7 +204,7 @@ class Camera {
             std::clog << "start antiliasing !\n";
             for (int i = 1; i < image_height - 1; i++)
                 for (int j = 1; j < image_width - 1; j++) {
-                    color res_color(0.0, 0.0, 0.0);
+                    Color res_color(0.0, 0.0, 0.0);
                     for (int delta_i = -1; delta_i < 2; delta_i++)
                         for (int delta_j = -1; delta_j < 2; delta_j++)
                             res_color += color_buf[i + delta_i][j + delta_j] * gaussion_kernel[1 + delta_i][1 + delta_j];
@@ -231,7 +231,7 @@ class Camera {
         return random_x * viewport_delta_u + random_y * viewport_delta_v;
     }
 
-    point3 defocus_disk_sample() const {
+    Point3 defocus_disk_sample() const {
         auto p = random_in_unit_disk();
         return camera_center + p[0] * defocus_disk_u + p[1] * defocus_disk_v;
     }
@@ -257,8 +257,8 @@ class Camera {
           fov(_fov) {
         // *对一些非关键的量进行初值的设定，将其变量的变化放在后面set部分来设置
         // 设置相机信息
-        look_from = point3(0, 0, 0);
-        look_to = point3(0, 0, -1);
+        look_from = Point3(0, 0, 0);
+        look_to = Point3(0, 0, -1);
         vup = Vec3(0, 1, 0);
 
         // 初始化像素采样光线数量
@@ -294,7 +294,7 @@ class Camera {
         if_antialiasing = false;
 
         // 设置背景颜色为（1.0,1.0,1.0）
-        background_color = color(1.0, 1.0, 1.0);
+        background_color = Color(1.0, 1.0, 1.0);
     }
     void add_model(shared_ptr<Hittable> model) {
         models.add(model);
@@ -341,7 +341,7 @@ class Camera {
     void set_if_depth_output(bool if_depth) {
         if_depth_output = if_depth;
     }
-    void set_background_color(const color& _bc) {
+    void set_background_color(const Color& _bc) {
         background_color = _bc;
     }
     void Initialize() {
@@ -365,7 +365,7 @@ class Camera {
                 std::clog << "thread " << k << " : Row " << i << " finished\n";
                 for (int j = 0; j < image_width; j++) {
                     // produce a ray
-                    color ans_color(0.0, 0.0, 0.0);
+                    Color ans_color(0.0, 0.0, 0.0);
                     for (int k = 0; k < samples_per_pixel; k++) {
                         auto current_ray = get_ray(i, j);
                         ans_color += raycolor(current_ray, models);

@@ -3,12 +3,12 @@
 #include "vec3.h"
 #include "math_materials.h"
 #include "interval.h"
-#define color Vec3
+#define Color Vec3
 double from_linear_to_gamma(double linear_col) {
     return pow(linear_col, 0.4545);
 }
 
-void write_color(std::ostream &out, color pixel_color) {
+void write_color(std::ostream &out, Color pixel_color) {
     Interval rgb_range(0.0, 1.0);
 
     auto R = rgb_range.clamp(pixel_color.x());

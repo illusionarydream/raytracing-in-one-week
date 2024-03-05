@@ -4,38 +4,40 @@ int main() {
     // *image_width=400
     // *aspect_ratio=16.0/9.0
     // *fov=90
-    int image_width = 200;
-    double aspect_ratio = 16.0 / 9.0;
-    double fov = 80;
+    int image_width = 800;
+    double aspect_ratio = 1.0;
+    double fov = 40;
     Camera cam(image_width, aspect_ratio, fov);
 
     // *启用抗锯齿
     // cam.set_if_antialising(true);
 
     // *设置纹理
-    auto pertext = make_shared<Noise_texture>(4);
 
     // *设置背景颜色
-    cam.set_background_color(color(0.7, 0.8, 1.00));
+    cam.set_background_color(Color(0.0, 0.0, 0.0));
 
     // *设置表面
-    auto left_red = make_shared<Lambertian>(color(1.0, 0.2, 0.2));
-    auto back_green = make_shared<Lambertian>(color(0.2, 1.0, 0.2));
-    auto right_blue = make_shared<Lambertian>(color(0.2, 0.2, 1.0));
-    auto upper_orange = make_shared<Lambertian>(color(1.0, 0.5, 0.0));
-    auto lower_teal = make_shared<Lambertian>(color(0.2, 0.8, 0.8));
+    auto red = make_shared<Lambertian>(Color(.65, .05, .05));
+    auto white = make_shared<Lambertian>(Color(.73, .73, .73));
+    auto green = make_shared<Lambertian>(Color(.12, .45, .15));
+    auto light = make_shared<Diffuse_light>(Color(15, 15, 15));
 
     // *设置模型
-    cam.add_model(make_shared<Quad>(point3(-3, -2, 5), Vec3(0, 0, -4), Vec3(0, 4, 0), left_red));
-    cam.add_model(make_shared<Quad>(point3(-2, -2, 0), Vec3(4, 0, 0), Vec3(0, 4, 0), back_green));
-    cam.add_model(make_shared<Quad>(point3(3, -2, 1), Vec3(0, 0, 4), Vec3(0, 4, 0), right_blue));
-    cam.add_model(make_shared<Quad>(point3(-2, 3, 1), Vec3(4, 0, 0), Vec3(0, 0, 4), upper_orange));
-    cam.add_model(make_shared<Quad>(point3(-2, -3, 5), Vec3(4, 0, 0), Vec3(0, 0, -4), lower_teal));
+    cam.add_model(make_shared<Quad>(Point3(555, 0, 0), Vec3(0, 555, 0), Vec3(0, 0, 555), green));
+    cam.add_model(make_shared<Quad>(Point3(0, 0, 0), Vec3(0, 555, 0), Vec3(0, 0, 555), red));
+    cam.add_model(make_shared<Quad>(Point3(343, 554, 332), Vec3(-130, 0, 0), Vec3(0, 0, -105), light));
+    cam.add_model(make_shared<Quad>(Point3(0, 0, 0), Vec3(555, 0, 0), Vec3(0, 0, 555), white));
+    cam.add_model(make_shared<Quad>(Point3(555, 555, 555), Vec3(-555, 0, 0), Vec3(0, 0, -555), white));
+    cam.add_model(make_shared<Quad>(Point3(0, 0, 555), Vec3(555, 0, 0), Vec3(0, 555, 0), white));
 
     // *设置相机视角
-    cam.set_look_from(point3(0, 0, 9));
-    cam.set_look_to(point3(0, 0, 0));
-    cam.set_vup(point3(0, 1, 0));
+    cam.set_look_from(Point3(278, 278, -800));
+    cam.set_look_to(Point3(278, 278, 0));
+    cam.set_vup(Point3(0, 1, 0));
+
+    // *设置光线采样数目
+    // cam.set_samples_per_pixel(400);
 
     // *设置相机快门速度
     cam.set_shutter_time(0);

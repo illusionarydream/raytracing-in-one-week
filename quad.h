@@ -6,7 +6,7 @@
 class Quad : public Hittable {
    private:
     // 基点
-    point3 Q;
+    Point3 Q;
     // 四边形的一边向量
     Vec3 u;
     // 四边形的另一边向量
@@ -23,12 +23,12 @@ class Quad : public Hittable {
     Vec3 w;
 
    private:
-    void get_texture_uv(const point3& P, double& tex_u, double& tex_v) {
+    void get_texture_uv(const Point3& P, double& tex_u, double& tex_v) {
         auto Q_to_P = P - Q;
     }
 
    public:
-    Quad(const point3& _Q, const Vec3& _u, const Vec3& _v, std::shared_ptr<Material> _mat)
+    Quad(const Point3& _Q, const Vec3& _u, const Vec3& _v, std::shared_ptr<Material> _mat)
         : Q(_Q),
           u(_u),
           v(_v),
