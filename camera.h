@@ -266,7 +266,7 @@ class Camera {
 
         // 初始化下一次弹射的概率
         // *这是无偏的估计量
-        next_bounce_ratio = 0.95;
+        next_bounce_ratio = 0.98;
 
         // 初始化最大的弹射次数
         // *这是有偏的估计量

@@ -1,10 +1,11 @@
 #include "camera.h"
+#include "geometry.h"
 int main() {
     // *设置图片为：
     // *image_width=400
     // *aspect_ratio=16.0/9.0
     // *fov=90
-    int image_width = 800;
+    int image_width = 400;
     double aspect_ratio = 1.0;
     double fov = 40;
     Camera cam(image_width, aspect_ratio, fov);
@@ -30,6 +31,8 @@ int main() {
     cam.add_model(make_shared<Quad>(Point3(0, 0, 0), Vec3(555, 0, 0), Vec3(0, 0, 555), white));
     cam.add_model(make_shared<Quad>(Point3(555, 555, 555), Vec3(-555, 0, 0), Vec3(0, 0, -555), white));
     cam.add_model(make_shared<Quad>(Point3(0, 0, 555), Vec3(555, 0, 0), Vec3(0, 555, 0), white));
+    cam.add_model(produce_box(Point3(130, 0, 65), Point3(295, 165, 230), white));
+    cam.add_model(produce_box(Point3(265, 0, 295), Point3(430, 330, 460), white));
 
     // *设置相机视角
     cam.set_look_from(Point3(278, 278, -800));
@@ -37,7 +40,7 @@ int main() {
     cam.set_vup(Point3(0, 1, 0));
 
     // *设置光线采样数目
-    // cam.set_samples_per_pixel(400);
+    cam.set_samples_per_pixel(1000);
 
     // *设置相机快门速度
     cam.set_shutter_time(0);

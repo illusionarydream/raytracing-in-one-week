@@ -7,6 +7,7 @@ CMakeFiles/main.dir/main.cpp.o: /home/illusionary/文档/c++_code/raytracing\ in
   /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/BVH.h \
   /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/camera.h \
   /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/color.h \
+  /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/geometry.h \
   /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/hittable.h \
   /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/hittable_list.h \
   /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/interval.h \
@@ -324,6 +325,8 @@ CMakeFiles/main.dir/main.cpp.o: /home/illusionary/文档/c++_code/raytracing\ in
 
 /usr/include/linux/limits.h:
 
+/usr/include/limits.h:
+
 /usr/include/c++/13.2.1/bits/functional_hash.h:
 
 /usr/include/c++/13.2.1/bits/exception_ptr.h:
@@ -367,6 +370,8 @@ CMakeFiles/main.dir/main.cpp.o: /home/illusionary/文档/c++_code/raytracing\ in
 /usr/include/c++/13.2.1/bits/predefined_ops.h:
 
 /usr/include/ctype.h:
+
+/home/illusionary/文档/c++_code/raytracing\ in\ one\ week/geometry.h:
 
 /usr/include/bits/types/struct_FILE.h:
 
@@ -426,8 +431,6 @@ CMakeFiles/main.dir/main.cpp.o: /home/illusionary/文档/c++_code/raytracing\ in
 
 /usr/include/bits/stdlib-float.h:
 
-/usr/include/bits/thread-shared-types.h:
-
 /usr/include/c++/13.2.1/bits/stl_uninitialized.h:
 
 /usr/include/c++/13.2.1/string_view:
@@ -444,8 +447,6 @@ CMakeFiles/main.dir/main.cpp.o: /home/illusionary/文档/c++_code/raytracing\ in
 
 /usr/include/bits/locale.h:
 
-/home/illusionary/package/stb/stb_image.h:
-
 /usr/include/bits/stdint-least.h:
 
 /usr/include/c++/13.2.1/bits/atomic_lockfree_defines.h:
@@ -457,6 +458,18 @@ CMakeFiles/main.dir/main.cpp.o: /home/illusionary/文档/c++_code/raytracing\ in
 /usr/include/features-time64.h:
 
 /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/vec3.h:
+
+/usr/include/bits/types/struct_timespec.h:
+
+/usr/include/c++/13.2.1/bits/algorithmfwd.h:
+
+/usr/include/c++/13.2.1/bits/ptr_traits.h:
+
+/usr/include/bits/types/time_t.h:
+
+/usr/include/bits/struct_rwlock.h:
+
+/usr/include/bits/types/struct_itimerspec.h:
 
 /usr/include/c++/13.2.1/bits/charconv.h:
 
@@ -472,13 +485,27 @@ CMakeFiles/main.dir/main.cpp.o: /home/illusionary/文档/c++_code/raytracing\ in
 
 /usr/include/c++/13.2.1/ext/alloc_traits.h:
 
-/usr/include/bits/types/struct_itimerspec.h:
-
-/usr/include/bits/struct_rwlock.h:
-
 /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/quad.h:
 
 /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/ray.h:
+
+/usr/include/bits/endianness.h:
+
+/usr/include/c++/13.2.1/tuple:
+
+/usr/include/bits/libm-simd-decl-stubs.h:
+
+/usr/include/c++/13.2.1/bits/locale_classes.tcc:
+
+/usr/include/c++/13.2.1/bits/memoryfwd.h:
+
+/usr/include/c++/13.2.1/bits/basic_string.h:
+
+/usr/include/sys/select.h:
+
+/usr/include/c++/13.2.1/bits/alloc_traits.h:
+
+/usr/include/c++/13.2.1/bits/cpp_type_traits.h:
 
 /usr/include/bits/endian.h:
 
@@ -506,23 +533,7 @@ CMakeFiles/main.dir/main.cpp.o: /home/illusionary/文档/c++_code/raytracing\ in
 
 /usr/include/bits/math-vector.h:
 
-/usr/include/bits/endianness.h:
-
-/usr/include/c++/13.2.1/tuple:
-
-/usr/include/bits/libm-simd-decl-stubs.h:
-
-/usr/include/c++/13.2.1/bits/locale_classes.tcc:
-
-/usr/include/c++/13.2.1/bits/memoryfwd.h:
-
-/usr/include/c++/13.2.1/bits/basic_string.h:
-
-/usr/include/sys/select.h:
-
-/usr/include/c++/13.2.1/bits/alloc_traits.h:
-
-/usr/include/c++/13.2.1/bits/cpp_type_traits.h:
+/home/illusionary/package/stb/stb_image.h:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/stddef.h:
 
@@ -534,9 +545,9 @@ CMakeFiles/main.dir/main.cpp.o: /home/illusionary/文档/c++_code/raytracing\ in
 
 /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/BVH.h:
 
-/usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/gthr.h:
+/usr/include/bits/thread-shared-types.h:
 
-/usr/include/c++/13.2.1/bits/invoke.h:
+/usr/include/bits/types/struct_timeval.h:
 
 /usr/include/c++/13.2.1/pstl/execution_defs.h:
 
@@ -545,8 +556,6 @@ CMakeFiles/main.dir/main.cpp.o: /home/illusionary/文档/c++_code/raytracing\ in
 /usr/include/wchar.h:
 
 /usr/include/bits/posix1_lim.h:
-
-/usr/include/bits/types/struct_timeval.h:
 
 /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/texture.h:
 
@@ -658,13 +667,9 @@ CMakeFiles/main.dir/main.cpp.o: /home/illusionary/文档/c++_code/raytracing\ in
 
 /usr/include/bits/types/__FILE.h:
 
-/usr/include/bits/types/struct_timespec.h:
+/usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/gthr.h:
 
-/usr/include/c++/13.2.1/bits/algorithmfwd.h:
-
-/usr/include/c++/13.2.1/bits/ptr_traits.h:
-
-/usr/include/bits/types/time_t.h:
+/usr/include/c++/13.2.1/bits/invoke.h:
 
 /usr/include/c++/13.2.1/bits/istream.tcc:
 
@@ -855,5 +860,3 @@ CMakeFiles/main.dir/main.cpp.o: /home/illusionary/文档/c++_code/raytracing\ in
 /usr/include/endian.h:
 
 /usr/include/errno.h:
-
-/usr/include/limits.h:

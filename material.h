@@ -47,11 +47,12 @@ class Lambertian : public Material {
     }
     bool scatter(const Ray& r_in, const Hit_record& rec, Color& attenuation, Ray& scattered)
         const override {
-        auto new_direction = rec.normal + random_in_unit_sphere();
+        auto new_direction = rec.normal + random_unit_vector();
 
         // if the random vec is opposite of the rec.normal
-        if (new_direction.near_zero() == true)
+        if (new_direction.near_zero() == true) {
             new_direction = rec.normal;
+        }
         scattered = Ray(rec.p, unit_vector(new_direction), r_in.time());
         attenuation = get_attenuation(rec);
         return true;

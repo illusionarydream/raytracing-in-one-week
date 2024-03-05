@@ -48,7 +48,7 @@ class Vec3 {
     }
 
     bool near_zero() {
-        return (fabs(e[0] < min_double_error)) && (fabs(e[1] < min_double_error)) && (fabs(e[2] < min_double_error));
+        return (fabs(e[0]) < min_double_error) && (fabs(e[1]) < min_double_error) && (fabs(e[2]) < min_double_error);
     }
 };
 

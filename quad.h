@@ -32,19 +32,26 @@ class Quad : public Hittable {
         : Q(_Q),
           u(_u),
           v(_v),
-          mat(_mat),
-          quad_box(Q, Q + u + v),
-          normal(cross(u, v)),
-          D(dot(normal, Q)),
-          w(normal / dot(normal, normal)) {}
+          mat(_mat) {
+        auto n = cross(u, v);
+        normal = unit_vector(n);
+        D = dot(normal, Q);
+        w = n / dot(n, n);
+
+        auto tmp_box = AABB(Q, Q + u + v);
+        tmp_box.padding();
+        quad_box = tmp_box;
+    }
     AABB bounding_box() const override {
         return quad_box;
     }
     bool hit(const Ray& r, Interval ray_t, Hit_record& rec) const override {
         // 如果光线是平行于四边形表面的话
         auto n_dot_d = dot(normal, r.direction());
-        if (std::fabs(n_dot_d) < min_double_error)
+        if (std::fabs(n_dot_d) < min_double_error) {
             return false;
+        }
+
         // 计算光线与四边形表面的交点
         auto root = (D - dot(normal, r.origin())) / n_dot_d;
         if (ray_t.surrounds(root))
@@ -63,7 +70,7 @@ class Quad : public Hittable {
         rec.t = root;
         rec.p = P;
         rec.mat = mat;
-        rec.set_surface_normal(r, unit_vector(normal));
+        rec.set_surface_normal(r, normal);
 
         return true;
     }
