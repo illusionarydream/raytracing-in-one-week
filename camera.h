@@ -293,8 +293,8 @@ class Camera {
         // 初始化不启用抗锯齿
         if_antialiasing = false;
 
-        // 设置背景颜色为（1.0,1.0,1.0）
-        background_color = Color(1.0, 1.0, 1.0);
+        // 设置背景颜色为（0.2,0.2,0.2）
+        background_color = Color(0.05, 0.05, 0.05);
     }
     void add_model(shared_ptr<Hittable> model) {
         models.add(model);

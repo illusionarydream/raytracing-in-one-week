@@ -7,6 +7,7 @@ CMakeFiles/main.dir/main.cpp.o: /home/illusionary/文档/c++_code/raytracing\ in
   /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/BVH.h \
   /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/camera.h \
   /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/color.h \
+  /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/constant_media.h \
   /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/geometry.h \
   /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/hittable.h \
   /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/hittable_list.h \
@@ -328,8 +329,6 @@ CMakeFiles/main.dir/main.cpp.o: /home/illusionary/文档/c++_code/raytracing\ in
 
 /usr/include/limits.h:
 
-/usr/include/c++/13.2.1/bits/functional_hash.h:
-
 /usr/include/c++/13.2.1/bits/exception_ptr.h:
 
 /usr/include/c++/13.2.1/bits/exception.h:
@@ -510,16 +509,6 @@ CMakeFiles/main.dir/main.cpp.o: /home/illusionary/文档/c++_code/raytracing\ in
 
 /usr/include/c++/13.2.1/bits/cpp_type_traits.h:
 
-/usr/include/bits/endian.h:
-
-/usr/include/c++/13.2.1/clocale:
-
-/home/illusionary/文档/c++_code/raytracing\ in\ one\ week/main.cpp:
-
-/usr/include/bits/pthreadtypes-arch.h:
-
-/usr/include/c++/13.2.1/bits/range_access.h:
-
 /usr/include/c++/13.2.1/bits/char_traits.h:
 
 /usr/include/c++/13.2.1/system_error:
@@ -535,6 +524,12 @@ CMakeFiles/main.dir/main.cpp.o: /home/illusionary/文档/c++_code/raytracing\ in
 /usr/include/c++/13.2.1/bits/functexcept.h:
 
 /usr/include/bits/math-vector.h:
+
+/home/illusionary/文档/c++_code/raytracing\ in\ one\ week/main.cpp:
+
+/usr/include/bits/pthreadtypes-arch.h:
+
+/usr/include/c++/13.2.1/bits/range_access.h:
 
 /home/illusionary/package/stb/stb_image.h:
 
@@ -553,10 +548,6 @@ CMakeFiles/main.dir/main.cpp.o: /home/illusionary/文档/c++_code/raytracing\ in
 /usr/include/bits/thread-shared-types.h:
 
 /usr/include/bits/types/struct_timeval.h:
-
-/usr/include/c++/13.2.1/pstl/execution_defs.h:
-
-/home/illusionary/文档/c++_code/raytracing\ in\ one\ week/hittable.h:
 
 /usr/include/wchar.h:
 
@@ -592,6 +583,14 @@ CMakeFiles/main.dir/main.cpp.o: /home/illusionary/文档/c++_code/raytracing\ in
 
 /usr/include/c++/13.2.1/tr1/bessel_function.tcc:
 
+/home/illusionary/文档/c++_code/raytracing\ in\ one\ week/hittable.h:
+
+/usr/include/c++/13.2.1/pstl/execution_defs.h:
+
+/usr/include/bits/endian.h:
+
+/usr/include/c++/13.2.1/clocale:
+
 /usr/include/bits/endianness.h:
 
 /usr/include/c++/13.2.1/tuple:
@@ -601,6 +600,8 @@ CMakeFiles/main.dir/main.cpp.o: /home/illusionary/文档/c++_code/raytracing\ in
 /usr/include/c++/13.2.1/bits/locale_classes.tcc:
 
 /usr/include/c++/13.2.1/bits/memoryfwd.h:
+
+/usr/include/c++/13.2.1/memory:
 
 /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/material.h:
 
@@ -658,6 +659,14 @@ CMakeFiles/main.dir/main.cpp.o: /home/illusionary/文档/c++_code/raytracing\ in
 
 /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/cpu_defines.h:
 
+/usr/include/bits/types/__FILE.h:
+
+/usr/include/features.h:
+
+/usr/include/c++/13.2.1/bits/ios_base.h:
+
+/usr/include/bits/sched.h:
+
 /usr/include/bits/select.h:
 
 /usr/include/bits/types/error_t.h:
@@ -666,13 +675,7 @@ CMakeFiles/main.dir/main.cpp.o: /home/illusionary/文档/c++_code/raytracing\ in
 
 /usr/include/c++/13.2.1/typeinfo:
 
-/usr/include/features.h:
-
-/usr/include/c++/13.2.1/bits/ios_base.h:
-
-/usr/include/bits/sched.h:
-
-/usr/include/bits/types/__FILE.h:
+/usr/include/c++/13.2.1/bits/functional_hash.h:
 
 /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/gthr.h:
 
@@ -764,6 +767,8 @@ CMakeFiles/main.dir/main.cpp.o: /home/illusionary/文档/c++_code/raytracing\ in
 
 /usr/include/sys/types.h:
 
+/home/illusionary/文档/c++_code/raytracing\ in\ one\ week/constant_media.h:
+
 /usr/include/c++/13.2.1/cwchar:
 
 /usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/os_defines.h:
@@ -795,8 +800,6 @@ CMakeFiles/main.dir/main.cpp.o: /home/illusionary/文档/c++_code/raytracing\ in
 /usr/include/bits/types/mbstate_t.h:
 
 /usr/include/c++/13.2.1/iostream:
-
-/usr/include/c++/13.2.1/memory:
 
 /usr/include/c++/13.2.1/new:
 

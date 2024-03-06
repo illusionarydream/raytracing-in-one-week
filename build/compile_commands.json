@@ -1,8 +1,0 @@
-[
-{
-  "directory": "/home/illusionary/文档/c++_code/raytracing in one week/build",
-  "command": "/usr/bin/clang++ -I/home/illusionary/package/stb  -g -g -o CMakeFiles/main.dir/main.cpp.o -c \"/home/illusionary/文档/c++_code/raytracing in one week/main.cpp\"",
-  "file": "/home/illusionary/文档/c++_code/raytracing in one week/main.cpp",
-  "output": "CMakeFiles/main.dir/main.cpp.o"
-}
-]

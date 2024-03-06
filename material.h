@@ -16,6 +16,38 @@ class Material {
     // 根据入射光，反射点，最后得到散射光对RGB三通道的削弱程度和反射光线
     virtual bool scatter(const Ray& r_in, const Hit_record& rec, Color& attenuation, Ray& scattered) const = 0;
 };
+// *各向同性的介质albedo和tex本质相同，tex也必须各向同性才行，所以对u,v没有要求
+class Isotropic : public Material {
+   private:
+    // 吸收率
+    Color albedo;
+    // 材质贴图
+    shared_ptr<Texture> tex;
+    bool if_tex;
+
+   public:
+    Isotropic(const Color& attenuation)
+        : albedo(attenuation),
+          if_tex(false) {}
+    Isotropic(shared_ptr<Texture> _tex)
+        : albedo(Color(1.0, 1.0, 1.0)),
+          if_tex(true),
+          tex(_tex) {}
+    Color get_attenuation(const Hit_record& rec) const {
+        if (if_tex == false)
+            return albedo;
+        auto tex_attenuation = tex->get_texture_color(rec.u, rec.v, rec.p);
+        return albedo * tex_attenuation;
+    }
+    bool scatter(const Ray& r_in, const Hit_record& rec, Color& attenuation, Ray& scattered)
+        const override {
+        auto new_direction = random_unit_vector();
+
+        scattered = Ray(rec.p, new_direction, r_in.time());
+        attenuation = get_attenuation(rec);
+        return true;
+    }
+};
 
 // * 发生漫反射
 class Lambertian : public Material {
