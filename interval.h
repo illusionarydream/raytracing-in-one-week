@@ -43,4 +43,12 @@ class Interval {
 const static Interval empty(+infinity, -infinity);
 const static Interval universe(-infinity, +infinity);
 
+Interval operator+(const Interval& ival, double displacement) {
+    return Interval(ival.get_tmin() + displacement, ival.get_tmax() + displacement);
+}
+
+Interval operator+(double displacement, const Interval& ival) {
+    return ival + displacement;
+}
+
 #endif

@@ -19,6 +19,7 @@ CMakeFiles/main.dir/main.cpp.o: /home/illusionary/文档/c++_code/raytracing\ in
   /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/rtw_image.h \
   /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/sphere.h \
   /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/texture.h \
+  /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/translate.h \
   /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/vec3.h \
   /usr/include/alloca.h \
   /usr/include/asm-generic/errno-base.h \
@@ -431,6 +432,10 @@ CMakeFiles/main.dir/main.cpp.o: /home/illusionary/文档/c++_code/raytracing\ in
 
 /usr/include/bits/stdlib-float.h:
 
+/usr/include/bits/struct_mutex.h:
+
+/usr/include/c++/13.2.1/ext/alloc_traits.h:
+
 /usr/include/c++/13.2.1/bits/stl_uninitialized.h:
 
 /usr/include/c++/13.2.1/string_view:
@@ -471,6 +476,18 @@ CMakeFiles/main.dir/main.cpp.o: /home/illusionary/文档/c++_code/raytracing\ in
 
 /usr/include/bits/types/struct_itimerspec.h:
 
+/usr/include/c++/13.2.1/bits/ostream_insert.h:
+
+/usr/include/c++/13.2.1/string:
+
+/usr/include/bits/waitstatus.h:
+
+/usr/include/bits/wchar.h:
+
+/usr/include/bits/types/struct___jmp_buf_tag.h:
+
+/usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/atomic_word.h:
+
 /usr/include/c++/13.2.1/bits/charconv.h:
 
 /usr/include/bits/uintn-identity.h:
@@ -481,23 +498,9 @@ CMakeFiles/main.dir/main.cpp.o: /home/illusionary/文档/c++_code/raytracing\ in
 
 /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/camera.h:
 
-/usr/include/bits/struct_mutex.h:
-
-/usr/include/c++/13.2.1/ext/alloc_traits.h:
-
 /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/quad.h:
 
 /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/ray.h:
-
-/usr/include/bits/endianness.h:
-
-/usr/include/c++/13.2.1/tuple:
-
-/usr/include/bits/libm-simd-decl-stubs.h:
-
-/usr/include/c++/13.2.1/bits/locale_classes.tcc:
-
-/usr/include/c++/13.2.1/bits/memoryfwd.h:
 
 /usr/include/c++/13.2.1/bits/basic_string.h:
 
@@ -536,6 +539,8 @@ CMakeFiles/main.dir/main.cpp.o: /home/illusionary/文档/c++_code/raytracing\ in
 /home/illusionary/package/stb/stb_image.h:
 
 /usr/lib/gcc/x86_64-pc-linux-gnu/13.2.1/include/stddef.h:
+
+/home/illusionary/文档/c++_code/raytracing\ in\ one\ week/translate.h:
 
 /usr/include/assert.h:
 
@@ -586,6 +591,16 @@ CMakeFiles/main.dir/main.cpp.o: /home/illusionary/文档/c++_code/raytracing\ in
 /usr/include/c++/13.2.1/bits/new_allocator.h:
 
 /usr/include/c++/13.2.1/tr1/bessel_function.tcc:
+
+/usr/include/bits/endianness.h:
+
+/usr/include/c++/13.2.1/tuple:
+
+/usr/include/bits/libm-simd-decl-stubs.h:
+
+/usr/include/c++/13.2.1/bits/locale_classes.tcc:
+
+/usr/include/c++/13.2.1/bits/memoryfwd.h:
 
 /home/illusionary/文档/c++_code/raytracing\ in\ one\ week/material.h:
 
@@ -645,14 +660,6 @@ CMakeFiles/main.dir/main.cpp.o: /home/illusionary/文档/c++_code/raytracing\ in
 
 /usr/include/bits/select.h:
 
-/usr/include/bits/waitstatus.h:
-
-/usr/include/bits/wchar.h:
-
-/usr/include/bits/types/struct___jmp_buf_tag.h:
-
-/usr/include/c++/13.2.1/x86_64-pc-linux-gnu/bits/atomic_word.h:
-
 /usr/include/bits/types/error_t.h:
 
 /usr/include/c++/13.2.1/istream:
@@ -684,10 +691,6 @@ CMakeFiles/main.dir/main.cpp.o: /home/illusionary/文档/c++_code/raytracing\ in
 /usr/include/c++/13.2.1/bits/nested_exception.h:
 
 /usr/include/c++/13.2.1/bits/uniform_int_dist.h:
-
-/usr/include/c++/13.2.1/bits/ostream_insert.h:
-
-/usr/include/c++/13.2.1/string:
 
 /usr/include/asm/errno.h:
 
@@ -799,9 +802,9 @@ CMakeFiles/main.dir/main.cpp.o: /home/illusionary/文档/c++_code/raytracing\ in
 
 /usr/include/c++/13.2.1/pstl/glue_memory_defs.h:
 
-/usr/include/c++/13.2.1/bits/hash_bytes.h:
-
 /usr/include/bits/types/struct_sched_param.h:
+
+/usr/include/c++/13.2.1/bits/hash_bytes.h:
 
 /usr/include/c++/13.2.1/ratio:
 

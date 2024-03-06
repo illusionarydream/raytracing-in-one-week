@@ -1,5 +1,6 @@
 #include "camera.h"
 #include "geometry.h"
+#include "translate.h"
 int main() {
     // *设置图片为：
     // *image_width=400
@@ -31,8 +32,16 @@ int main() {
     cam.add_model(make_shared<Quad>(Point3(0, 0, 0), Vec3(555, 0, 0), Vec3(0, 0, 555), white));
     cam.add_model(make_shared<Quad>(Point3(555, 555, 555), Vec3(-555, 0, 0), Vec3(0, 0, -555), white));
     cam.add_model(make_shared<Quad>(Point3(0, 0, 555), Vec3(555, 0, 0), Vec3(0, 555, 0), white));
-    cam.add_model(produce_box(Point3(130, 0, 65), Point3(295, 165, 230), white));
-    cam.add_model(produce_box(Point3(265, 0, 295), Point3(430, 330, 460), white));
+
+    shared_ptr<Hittable> box1 = produce_box(Point3(0, 0, 0), Point3(165, 330, 165), white);
+    box1 = make_shared<Rotate_y>(box1, 15);
+    box1 = make_shared<Translate>(box1, Vec3(265, 0, 295));
+    cam.add_model(box1);
+
+    shared_ptr<Hittable> box2 = produce_box(Point3(0, 0, 0), Point3(165, 165, 165), white);
+    box2 = make_shared<Rotate_y>(box2, -18);
+    box2 = make_shared<Translate>(box2, Vec3(130, 0, 65));
+    cam.add_model(box2);
 
     // *设置相机视角
     cam.set_look_from(Point3(278, 278, -800));
